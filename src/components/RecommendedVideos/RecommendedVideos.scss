@@ -1,4 +1,17 @@
+@import "src/style/color";
+
 .recommendedVideos {
   flex: 0.9;
-  padding: 0 1rem;
+  padding: 0 1.2rem;
+  background-color: $background-gray;
+
+  h2 {
+    margin-left: 5px;
+    margin-bottom: 1.2rem;
+  }
+
+  .recommendedVideos__videos {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

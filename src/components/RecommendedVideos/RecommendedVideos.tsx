@@ -4,7 +4,9 @@ import "./RecommendedVideos.scss";
 const RecommendedVideos = () => {
   return (
     <div className="recommendedVideos">
-      <h2>recommendedVideos</h2>
+      <h2>recommended</h2>
+
+      <div className="recommendedVideos__videos"></div>
     </div>
   );
 };
