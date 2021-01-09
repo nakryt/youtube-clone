@@ -1,0 +1,38 @@
+@import "src/style/color";
+
+.sidebarRow {
+  display: flex;
+  align-items: center;
+  padding: 0.45rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.1s ease;
+
+  &:hover {
+    background-color: $sidebar-item-hover;
+  }
+
+  .MuiSvgIcon-root {
+    color: gray;
+    transition: all 0.2s ease;
+    font-size: 1.5rem;
+  }
+
+  .sidebarRow__title {
+    flex: 1;
+    margin-left: 1.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  &.sidebarRow--selected {
+    background-color: $sidebar-item-active;
+
+    .MuiSvgIcon-root {
+      color: $main;
+    }
+
+    .sidebarRow__title {
+      font-weight: 700;
+    }
+  }
+}

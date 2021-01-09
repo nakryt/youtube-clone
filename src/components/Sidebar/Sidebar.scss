@@ -1,4 +1,13 @@
+@import "src/style/color";
+
 .sidebar {
   flex: 0.2;
-  border: 1px solid black;
+  padding-top: 0.9rem;
+
+  hr {
+    margin: 1rem 0 0.8rem 0;
+    color: $black-ten-percent;
+    background-color: $black-ten-percent;
+    height: 1px;
+  }
 }

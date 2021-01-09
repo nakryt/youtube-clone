@@ -4,4 +4,8 @@
   .app__page {
     display: flex;
   }
+
+  .MuiIconButton-root:hover {
+    background-color: transparent;
+  }
 }

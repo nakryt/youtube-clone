@@ -3,7 +3,11 @@
   align-items: center;
 
   .header__icon {
-    margin-right: 0.4rem;
+    margin-right: 0.3rem;
+
+    &:last-of-type {
+      margin-right: 0.8rem;
+    }
   }
 
   .avatar {
