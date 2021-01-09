@@ -1,0 +1,13 @@
+.header__buttons {
+  display: flex;
+  align-items: center;
+
+  .header__icon {
+    margin-right: 0.4rem;
+  }
+
+  .avatar {
+    width: 35px;
+    height: 35px;
+  }
+}

@@ -1,36 +1,30 @@
 import React from "react";
 import "./Header.scss";
 
-import { Avatar } from "@material-ui/core";
-import {
-  Menu,
-  Search,
-  VideoCall,
-  Apps,
-  Notifications,
-} from "@material-ui/icons";
+import { IconButton } from "@material-ui/core";
+import { Menu } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import { ReactComponent as Logo } from "../../assets/img/logo.svg";
+
+import Search from "./Search/Search";
+import Buttons from "./Buttons/Buttons";
 
 const Header = () => {
   return (
     <div className="header">
       <div className="header__left">
-        <Menu />
-        <img
-          className="header__logo"
-          src="https://upload.wikimedia.org/wikipedia/commons/9/98/YouTube_Logo.svg"
-          alt="youtube logo"
-        />
+        <IconButton>
+          <Menu />
+        </IconButton>
+        <div className="header__logo">
+          <Link to="/">
+            <Logo />
+          </Link>
+        </div>
       </div>
-      <div className="header__input">
-        <input type="text" placeholder="Search" />
-        <Search className="header__inputButton" />
-      </div>
-      <div className="header__icons">
-        <VideoCall className="header__icon" />
-        <Apps className="header__icon" />
-        <Notifications className="header__icon" />
-        <Avatar />
-      </div>
+
+      <Search />
+      <Buttons />
     </div>
   );
 };
