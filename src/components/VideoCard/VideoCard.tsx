@@ -26,7 +26,7 @@ const VideoCard: FC<Props> = ({
         <Avatar
           className="videoCard__avatar"
           src={channelImage}
-          alt={channel}
+          alt={channelName}
         />
         <div className="videoCard__text">
           <h4>{title}</h4>
