@@ -1,0 +1,12 @@
+.currentVideo {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+
+  .currentVideo__iframe {
+    width: 850px;
+    height: 480px;
+    border: none;
+    margin-bottom: 1rem;
+  }
+}

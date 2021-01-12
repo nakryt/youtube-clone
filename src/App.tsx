@@ -16,6 +16,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import RecommendedVideos from "./components/RecommendedVideos/RecommendedVideos";
 import SearchPage from "./components/SearchPage/SearchPage";
 import Login from "./components/Login/Login";
+import WatchPage from "./components/WatchPage/WatchPage";
 
 function App() {
   return (
@@ -24,12 +25,19 @@ function App() {
         <Header />
 
         <div className="app__page">
-          <Sidebar />
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/trending" render={() => <h2>Trending videos</h2>} />
-            <Route path="/search/:term" component={SearchPage} />
-            <Route path="/" exact component={RecommendedVideos} />
+            <Route path="/watch" component={WatchPage} />
+
+            <Route path="/search/:term">
+              <Sidebar />
+              <SearchPage />
+            </Route>
+
+            <Route path="/">
+              <Sidebar />
+              <RecommendedVideos />
+            </Route>
+
             <Redirect to="/" />
           </Switch>
         </div>

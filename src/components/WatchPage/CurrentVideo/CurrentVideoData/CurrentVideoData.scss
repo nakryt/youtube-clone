@@ -1,0 +1,37 @@
+@import "src/style/color";
+
+.currentVideoData {
+  .MuiSvgIcon-root {
+    color: $gray-for-button;
+    margin-right: 0.4rem;
+  }
+
+  .currentVideoData__hashtags {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .currentVideoData__title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+  }
+
+  .currentVideoData__metadata {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .metadata__meta {
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: $gray;
+      flex: 2;
+
+      .currentVideoData__views {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

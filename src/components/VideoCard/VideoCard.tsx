@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import "./VideoCard.scss";
+
 import { Avatar } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import Truncate from "react-truncate";
 
@@ -8,6 +10,7 @@ import axios from "../../axios";
 import { ChannelItem, ChannelResponse } from "../../types/channel";
 
 interface Props {
+  videoId: string;
   title: string;
   numberOfViews: string;
   timestamp: string;
@@ -16,6 +19,7 @@ interface Props {
 }
 
 const VideoCard: FC<Props> = ({
+  videoId,
   title,
   numberOfViews,
   timestamp,
@@ -37,7 +41,7 @@ const VideoCard: FC<Props> = ({
   }, [channelId]);
 
   return (
-    <div className="videoCard">
+    <Link className="videoCard" to={`/watch?v=${videoId}`}>
       <img src={imageVideo} alt="video" className="videoCard__thumbnail" />
 
       {Object.keys(channel).length > 0 ? (
@@ -63,7 +67,7 @@ const VideoCard: FC<Props> = ({
           </div>
         </div>
       ) : null}
-    </div>
+    </Link>
   );
 };
 

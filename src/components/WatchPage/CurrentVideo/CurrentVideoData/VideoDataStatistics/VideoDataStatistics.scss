@@ -1,0 +1,22 @@
+@import "src/style/color";
+
+.videoDataStatistics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 3;
+
+  span {
+    display: flex;
+    align-items: center;
+    color: $gray;
+    text-transform: uppercase;
+  }
+
+  .reply {
+    .MuiSvgIcon-root {
+      transform: rotateY(180deg);
+      font-size: 1.8rem;
+    }
+  }
+}

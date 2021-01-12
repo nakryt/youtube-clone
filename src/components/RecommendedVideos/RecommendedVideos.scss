@@ -6,18 +6,11 @@
   padding: 1.2rem;
   background-color: $background-gray;
 
-  h2 {
-    margin-left: 5px;
-    margin-bottom: 1.2rem;
-  }
-
   .recommendedVideos__videos {
-    //display: flex;
-    //justify-content: space-between;
-    //flex-wrap: wrap;
-
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 1.2rem;
+    grid-row-gap: 1.5rem;
 
     @include for-desktop-down {
       grid-template-columns: repeat(3, 1fr);
