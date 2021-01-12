@@ -35,11 +35,9 @@ const RecommendedVideos = () => {
     }
 
     return () => {
-      isCancel = true;
+      // isCancel = true;
     };
   }, []);
-
-  console.log(videos);
 
   return (
     <div className="recommendedVideos">

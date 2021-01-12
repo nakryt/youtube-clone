@@ -2,6 +2,8 @@ import React, { FC, useEffect, useState } from "react";
 import "./VideoCard.scss";
 import { Avatar } from "@material-ui/core";
 import moment from "moment";
+import Truncate from "react-truncate";
+
 import axios from "../../axios";
 import { ChannelItem, ChannelResponse } from "../../types/channel";
 
@@ -30,14 +32,6 @@ const VideoCard: FC<Props> = ({
         ).data as ChannelResponse;
         setChannel(data.items[0]);
       } catch (e) {}
-
-      // let isCancel = false;
-      // if (!isCancel) {
-      // }
-
-      // return () => {
-      //   isCancel = true;
-      // };
     };
     getChannel();
   }, [channelId]);
@@ -54,7 +48,11 @@ const VideoCard: FC<Props> = ({
             alt={channel.snippet.title}
           />
           <div className="videoCard__text">
-            <h4>{title}</h4>
+            <h4>
+              <Truncate lines={2} ellipsis={"..."}>
+                {title}
+              </Truncate>
+            </h4>
             <p className="videoCard__channelName">{channel.snippet.title}</p>
             <p className="videoCard__numberOfViews">
               {numberOfViews.toUpperCase()} views
