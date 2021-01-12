@@ -17,23 +17,24 @@ const Search = () => {
   };
 
   return (
-    <form className="search" onSubmit={submitHandler}>
-      <div className="search__container">
+    <div className="search">
+      <form className="search__form" onSubmit={submitHandler}>
         <input
+          className="search__input"
           type="text"
           placeholder="Search"
           value={inputSearch}
           onChange={(e) => setInputSearch(e.target.value)}
         />
         <Keyboard className="keyboard" />
-      </div>
-      <button className="search__inputButton" type="submit">
-        <SearchIcon fontSize="small" />
-      </button>
+        <button className="search__inputButton" type="submit">
+          <SearchIcon fontSize="small" />
+        </button>
+      </form>
       <IconButton>
         <Mic />
       </IconButton>
-    </form>
+    </div>
   );
 };
 

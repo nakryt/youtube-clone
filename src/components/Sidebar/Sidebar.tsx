@@ -13,21 +13,41 @@ import {
   WatchLater,
 } from "@material-ui/icons";
 import SidebarRow from "./SidebarRow/SidebarRow";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 const Sidebar = () => {
+  const { width } = useWindowSize();
+  const isDesktopLarge = width > 1312;
+
   return (
     <div className="sidebar">
-      <SidebarRow selected title="Home" Icon={Home} />
-      <SidebarRow title="Trending" Icon={Whatshot} />
-      <SidebarRow title="Subscription" Icon={Subscriptions} />
+      <SidebarRow title="Home" Icon={Home} href="/" />
+      <SidebarRow title="Trending" Icon={Whatshot} href="/trending" />
+      <SidebarRow
+        title="Subscription"
+        Icon={Subscriptions}
+        href="/subscriptions"
+      />
       <hr />
-      <SidebarRow title="Library" Icon={VideoLibrary} />
-      <SidebarRow title="History" Icon={History} />
-      <SidebarRow title="Your videos" Icon={OndemandVideoOutlined} />
-      <SidebarRow title="Watch Later" Icon={WatchLater} />
-      <SidebarRow title="Liked video" Icon={ThumbUpAlt} />
-      <SidebarRow title="Show more" Icon={ExpandMoreOutlined} />
-      <hr />
+      <SidebarRow title="Library" Icon={VideoLibrary} href="/library" />
+      {isDesktopLarge && (
+        <>
+          <SidebarRow title="History" Icon={History} href="/history" />
+          <SidebarRow
+            title="Your videos"
+            Icon={OndemandVideoOutlined}
+            href="/videos"
+          />
+          <SidebarRow
+            title="Watch Later"
+            Icon={WatchLater}
+            href="/watch_later"
+          />
+          <SidebarRow title="Liked video" Icon={ThumbUpAlt} href="/liked" />
+          {/*<SidebarRow title="Show more" Icon={ExpandMoreOutlined} />*/}
+          <hr />
+        </>
+      )}
     </div>
   );
 };

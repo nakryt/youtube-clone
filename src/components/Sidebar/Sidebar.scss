@@ -1,13 +1,22 @@
 @import "src/style/color";
+@import "src/style/breakpoints";
 
 .sidebar {
   flex: 0.2;
   padding-top: 0.9rem;
+
+  @include for-desktop-large-down {
+    max-width: 72px;
+  }
 
   hr {
     margin: 1rem 0 0.8rem 0;
     color: $black-ten-percent;
     background-color: $black-ten-percent;
     height: 1px;
+
+    @include for-desktop-large-down {
+      display: none;
+    }
   }
 }

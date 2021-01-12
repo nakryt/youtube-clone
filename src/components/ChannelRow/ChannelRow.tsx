@@ -29,9 +29,12 @@ const ChannelRow: FC<Props> = ({
           {channel} {verified && <CheckCircleOutline />}
         </h4>
         <p>
-          {subs} subscribers + {numberOfVideos} videos
+          <span className="channelRow__subs">
+            <span className="videoRow__subsNumber">{subs}</span> Subscribers
+          </span>{" "}
+          {numberOfVideos} videos
         </p>
-        <p>{description}</p>
+        <p className="channelRow__description">{description}</p>
       </div>
     </div>
   );

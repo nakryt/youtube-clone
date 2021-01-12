@@ -1,18 +1,25 @@
 import React, { FC } from "react";
 import "./SidebarRow.scss";
 
+import { NavLink } from "react-router-dom";
+
 interface Props {
   title: string;
   Icon: FC;
-  selected?: boolean;
+  href: string;
 }
 
-const SidebarRow: FC<Props> = ({ title, Icon, selected }) => {
+const SidebarRow: FC<Props> = ({ title, Icon, href }) => {
   return (
-    <div className={`sidebarRow ${selected ? "sidebarRow--selected" : ""}`}>
+    <NavLink
+      to={href}
+      className="sidebarRow"
+      activeClassName="sidebarRow--selected"
+      exact
+    >
       <Icon />
       <h3 className="sidebarRow__title">{title}</h3>
-    </div>
+    </NavLink>
   );
 };
 

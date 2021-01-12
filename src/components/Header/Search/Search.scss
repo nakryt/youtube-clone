@@ -6,18 +6,24 @@
   align-items: center;
   margin-left: 50px;
 
-  .search__container {
+  .search__form {
     display: flex;
     flex: 1;
     align-items: center;
 
-    input {
+    .search__input {
       flex: 1;
-      border: 1px solid $border;
+      padding: 6px 2.6rem 6px 0.5rem;
+      border-radius: 2px 0 0 2px;
+      border: 1px solid #ccc;
       outline-width: 0;
-      padding: 5px 0.4rem;
+      box-shadow: inset 0 1px 2px #eee, inset 1px 0 0 #eee, inset -1px 0 0 #eee;
       font: inherit;
-      border-radius: 1px 0 0 1px;
+      z-index: 1;
+
+      &:focus {
+        border: 1px solid $input-border-focus;
+      }
     }
 
     .keyboard {
@@ -30,27 +36,27 @@
         color: rgba(0, 0, 0, 0.8);
       }
     }
-  }
+    .search__inputButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-self: stretch;
+      width: 65px;
+      margin-left: -1px;
+      background-color: $background-gray;
+      border: 1px solid $border;
+      border-radius: 0 2px 2px 0;
+      color: $button-gray;
+      outline-width: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
 
-  .search__inputButton {
-    display: grid;
-    place-items: center;
-    width: 65px;
-    height: 30px;
-    margin-left: -1px;
-    background-color: $background-gray;
-    border: 1px solid $border;
-    border-radius: 0 1px 1px 0;
-    color: $button-gray;
-    outline-width: 0;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      color: $button-gray-hover;
-      background-color: $background-gray-hover;
-      border-color: $border-hover;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      &:hover {
+        color: $button-gray-hover;
+        background-color: $background-gray-hover;
+        border-color: $border-hover;
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      }
     }
   }
 }

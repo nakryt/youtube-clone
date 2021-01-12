@@ -1,4 +1,5 @@
 @import "src/style/color";
+@import "src/style/breakpoints";
 
 .sidebarRow {
   display: flex;
@@ -6,6 +7,12 @@
   padding: 0.45rem 1.5rem;
   cursor: pointer;
   transition: all 0.1s ease;
+
+  @include for-desktop-large-down {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+  }
 
   &:hover {
     background-color: $sidebar-item-hover;
@@ -15,6 +22,10 @@
     color: gray;
     transition: all 0.2s ease;
     font-size: 1.5rem;
+
+    @include for-desktop-large-down {
+      margin-bottom: 6px;
+    }
   }
 
   .sidebarRow__title {
@@ -22,6 +33,11 @@
     margin-left: 1.5rem;
     font-size: 1rem;
     font-weight: 400;
+
+    @include for-desktop-large-down {
+      font-size: 0.7rem;
+      margin-left: 0;
+    }
   }
 
   &.sidebarRow--selected {
@@ -33,6 +49,10 @@
 
     .sidebarRow__title {
       font-weight: 700;
+
+      @include for-desktop-large-down {
+        font-weight: 400;
+      }
     }
   }
 }

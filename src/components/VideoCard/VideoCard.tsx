@@ -1,41 +1,70 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import "./VideoCard.scss";
 import { Avatar } from "@material-ui/core";
+import moment from "moment";
+import axios from "../../axios";
+import { ChannelItem, ChannelResponse } from "../../types/channel";
 
 interface Props {
   title: string;
-  numberOfViews: number;
+  numberOfViews: string;
   timestamp: string;
   imageVideo: string;
-  channelName: string;
-  channelImage: string;
+  channelId: string;
 }
 
 const VideoCard: FC<Props> = ({
   title,
   numberOfViews,
   timestamp,
-  channelName,
-  channelImage,
   imageVideo,
+  channelId,
 }) => {
+  const [channel, setChannel] = useState<ChannelItem>({} as ChannelItem);
+
+  useEffect(() => {
+    const getChannel = async () => {
+      try {
+        const data = (
+          await axios.get("/channels", { params: { id: channelId } })
+        ).data as ChannelResponse;
+        setChannel(data.items[0]);
+      } catch (e) {}
+
+      // let isCancel = false;
+      // if (!isCancel) {
+      // }
+
+      // return () => {
+      //   isCancel = true;
+      // };
+    };
+    getChannel();
+  }, [channelId]);
+
   return (
     <div className="videoCard">
       <img src={imageVideo} alt="video" className="videoCard__thumbnail" />
-      <div className="videoCard__info">
-        <Avatar
-          className="videoCard__avatar"
-          src={channelImage}
-          alt={channelName}
-        />
-        <div className="videoCard__text">
-          <h4>{title}</h4>
-          <p>{channelName}</p>
-          <p>
-            {numberOfViews} + {timestamp}
-          </p>
+
+      {Object.keys(channel).length > 0 ? (
+        <div className="videoCard__info">
+          <Avatar
+            className="videoCard__avatar"
+            src={channel.snippet.thumbnails.default.url}
+            alt={channel.snippet.title}
+          />
+          <div className="videoCard__text">
+            <h4>{title}</h4>
+            <p className="videoCard__channelName">{channel.snippet.title}</p>
+            <p className="videoCard__numberOfViews">
+              {numberOfViews.toUpperCase()} views
+            </p>
+            <p className="videoCard__timestamp">
+              {moment(timestamp).fromNow()}
+            </p>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

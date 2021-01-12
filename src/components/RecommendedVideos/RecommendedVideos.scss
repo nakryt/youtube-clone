@@ -1,8 +1,9 @@
 @import "src/style/color";
+@import "src/style/breakpoints";
 
 .recommendedVideos {
   flex: 0.9;
-  padding: 0 1.2rem;
+  padding: 1.2rem;
   background-color: $background-gray;
 
   h2 {
@@ -11,7 +12,18 @@
   }
 
   .recommendedVideos__videos {
-    display: flex;
-    flex-wrap: wrap;
+    //display: flex;
+    //justify-content: space-between;
+    //flex-wrap: wrap;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    @include for-desktop-down {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    //@include for-desktop-down {
+    //  grid-template-columns: repeat(3, 1fr);
+    //}
   }
 }

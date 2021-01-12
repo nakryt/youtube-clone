@@ -24,6 +24,19 @@
     p {
       color: $gray;
       font-size: small;
+
+      .channelRow__subs {
+        font-weight: 700;
+        margin-right: 5px;
+
+        .videoRow__subsNumber {
+          color: $blue;
+        }
+      }
+    }
+
+    .channelRow__description {
+      margin-top: 0.5rem;
     }
   }
 }
