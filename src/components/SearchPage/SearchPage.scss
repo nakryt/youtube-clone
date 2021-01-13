@@ -23,4 +23,11 @@
     color: $black-ten-percent;
     margin: 0.8rem 0;
   }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem 1rem 1rem 0;
+  }
 }

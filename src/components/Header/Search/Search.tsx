@@ -12,7 +12,7 @@ const Search = () => {
   const submitHandler = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputSearch.trim()) {
-      history.push(`/search/${inputSearch.replace("?", "%3F")}`);
+      history.push(`/search?q=${inputSearch.replace("?", "%3F")}`);
     }
   };
 

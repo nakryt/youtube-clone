@@ -15,7 +15,6 @@ import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import RecommendedVideos from "./components/RecommendedVideos/RecommendedVideos";
 import SearchPage from "./components/SearchPage/SearchPage";
-import Login from "./components/Login/Login";
 import WatchPage from "./components/WatchPage/WatchPage";
 
 function App() {
@@ -28,7 +27,7 @@ function App() {
           <Switch>
             <Route path="/watch" component={WatchPage} />
 
-            <Route path="/search/:term">
+            <Route path="/search">
               <Sidebar />
               <SearchPage />
             </Route>

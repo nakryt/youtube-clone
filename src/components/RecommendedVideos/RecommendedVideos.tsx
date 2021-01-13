@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./RecommendedVideos.scss";
 
-import { Redirect } from "react-router-dom";
-import { useStateValue } from "../../context/StateProvider";
 import youtube from "../../axios";
 import { VideoResponse, VideoItem } from "../../types/video";
 import VideoCard from "../VideoCard/VideoCard";
 import { prettyPrintStat } from "../../utils";
 
-import { data } from "../../types/types";
-
 const RecommendedVideos = () => {
+  const [loading, setLoading] = useState(true);
   const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [nextPageToken, setNextPageToken] = useState("");
 
-  useEffect(() => {
-    const getVideos = async () => {
+  const getVideos = useCallback(
+    async (pageToken: string = "") => {
+      setLoading(true);
       try {
         const data = (
           await youtube.get("/videos", {
@@ -23,39 +22,64 @@ const RecommendedVideos = () => {
               chart: "mostPopular",
               maxResults: 20,
               type: "video",
+              pageToken,
             },
           })
         ).data as VideoResponse;
 
-        setVideos(data.items);
-      } catch (e) {}
-    };
+        setVideos([...videos, ...data.items]);
 
-    // getVideos();
+        if (data.nextPageToken) {
+          setNextPageToken(data.nextPageToken);
+        }
+        setLoading(false);
+      } catch (e) {
+        setLoading(false);
+      }
+    },
+    [videos, loading]
+  );
+
+  useEffect(() => {
+    let isCancel = false;
+    if (!isCancel) {
+      getVideos();
+    }
+
+    return () => {
+      isCancel = true;
+    };
   }, []);
+
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  const scrollHandler = useCallback(() => {
+    const { current } = mainRef;
+    if (
+      !loading &&
+      current &&
+      current.offsetHeight <= Number(window.scrollY) + 700
+    ) {
+      getVideos(nextPageToken);
+    }
+  }, [mainRef, getVideos, nextPageToken, loading]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollHandler);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, [scrollHandler]);
 
   return (
     <div className="recommendedVideos">
-      <div className="recommendedVideos__videos">
-        {
-          //   videos.map((v) => (
-          //   <VideoCard
-          //     key={v.id}
-          //     videoId={v.id}
-          //     title={v.snippet.title}
-          //     numberOfViews={prettyPrintStat(v.statistics.viewCount)}
-          //     timestamp={v.snippet.publishedAt}
-          //     imageVideo={v.snippet.thumbnails.medium.url}
-          //     channelId={v.snippet.channelId}
-          //   />
-          // ))
-        }
-        {[data, data, data, data, data].map((v) => (
+      <div className="recommendedVideos__videos" ref={mainRef}>
+        {videos.map((v) => (
           <VideoCard
             key={v.id}
             videoId={v.id}
             title={v.snippet.title}
-            numberOfViews={"100K"}
+            numberOfViews={prettyPrintStat(v.statistics.viewCount)}
             timestamp={v.snippet.publishedAt}
             imageVideo={v.snippet.thumbnails.medium.url}
             channelId={v.snippet.channelId}
