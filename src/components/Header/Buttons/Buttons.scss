@@ -1,17 +1,38 @@
+@import "src/style/color";
+
 .header__buttons {
-  display: flex;
-  align-items: center;
+  & > div {
+    display: flex;
+    align-items: center;
 
-  .header__icon {
-    margin-right: 0.3rem;
+    .header__signIn {
+      border: 1px solid $blue-dark;
+      color: $blue-dark;
+      font-weight: 700;
+      margin-left: 0.5rem;
 
-    &:last-of-type {
-      margin-right: 0.8rem;
+      &:hover {
+        background-color: transparent;
+      }
+
+      .button__avatar {
+        width: 25px;
+        height: 25px;
+        margin-right: 0.5rem;
+        background-color: $blue-dark;
+      }
     }
-  }
+    .header__icon {
+      margin-right: 0.3rem;
 
-  .avatar {
-    width: 35px;
-    height: 35px;
+      &:last-of-type {
+        margin-right: 0.8rem;
+      }
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
+    }
   }
 }

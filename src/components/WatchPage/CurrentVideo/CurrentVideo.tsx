@@ -13,6 +13,7 @@ const CurrentVideo: FC<Props> = ({ videoId }) => {
         title={videoId}
         className="currentVideo__iframe"
         src={`https://www.youtube.com/embed/${videoId}`}
+        allowFullScreen
       />
       <div className="currentVideo__info">
         <CurrentVideoData />
