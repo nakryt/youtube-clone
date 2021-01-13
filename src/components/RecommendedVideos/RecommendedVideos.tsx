@@ -37,7 +37,7 @@ const RecommendedVideos = () => {
         setLoading(false);
       }
     },
-    [videos, loading]
+    [videos]
   );
 
   useEffect(() => {
@@ -49,6 +49,7 @@ const RecommendedVideos = () => {
     return () => {
       isCancel = true;
     };
+    // eslint-disable-next-line
   }, []);
 
   const mainRef = useRef<HTMLDivElement>(null);
@@ -58,7 +59,7 @@ const RecommendedVideos = () => {
     if (
       !loading &&
       current &&
-      current.offsetHeight <= Number(window.scrollY) + 700
+      current.offsetHeight <= Number(window.scrollY) + 800
     ) {
       getVideos(nextPageToken);
     }

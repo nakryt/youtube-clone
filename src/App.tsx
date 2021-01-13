@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.scss";
 
+import { Provider } from "react-redux";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,14 +10,12 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { StateProvider } from "./context/StateProvider";
-import reducer, { initialState } from "./context/reducer";
-
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import RecommendedVideos from "./components/RecommendedVideos/RecommendedVideos";
 import SearchPage from "./components/SearchPage/SearchPage";
 import WatchPage from "./components/WatchPage/WatchPage";
+import { store } from "./redux/store";
 
 function App() {
   return (
@@ -46,9 +46,9 @@ function App() {
 }
 
 const AppContainer = () => (
-  <StateProvider reducer={reducer} initialState={initialState}>
+  <Provider store={store}>
     <App />
-  </StateProvider>
+  </Provider>
 );
 
 export default AppContainer;
