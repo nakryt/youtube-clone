@@ -12,12 +12,15 @@ import {
   ThumbUpAlt,
   WatchLater,
 } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import SidebarRow from "./SidebarRow/SidebarRow";
 import { useWindowSize } from "../../hooks/useWindowSize";
+import { userSelector } from "../../redux/user/userSlice";
 
 const Sidebar = () => {
   const { width } = useWindowSize();
   const isDesktopLarge = width > 1312;
+  const user = useSelector(userSelector);
 
   return (
     <div className="sidebar">
@@ -30,7 +33,7 @@ const Sidebar = () => {
       />
       <hr />
       <SidebarRow title="Library" Icon={VideoLibrary} href="/library" />
-      {isDesktopLarge && (
+      {isDesktopLarge && user && (
         <>
           <SidebarRow title="History" Icon={History} href="/history" />
           <SidebarRow

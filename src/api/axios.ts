@@ -1,5 +1,5 @@
 import axios from "axios";
-import { firebaseConfig } from "./firebase";
+import { firebaseConfig } from "../firebase";
 
 const KEY = firebaseConfig.apiKey;
 

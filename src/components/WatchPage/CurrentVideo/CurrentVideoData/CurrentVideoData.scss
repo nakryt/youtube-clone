@@ -9,6 +9,10 @@
   .currentVideoData__hashtags {
     font-size: 0.8rem;
     margin-bottom: 0.2rem;
+    margin-right: 0.2rem;
+    a {
+      color: $blue-dark;
+    }
   }
 
   .currentVideoData__title {
@@ -29,8 +33,9 @@
       color: $gray;
       flex: 2;
 
-      .currentVideoData__views {
-        margin-right: 1rem;
+      .currentVideoData__dot {
+        margin: 0 0.3rem;
+        font-size: 1.2rem;
       }
     }
   }

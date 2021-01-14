@@ -7,7 +7,7 @@ import { TuneOutlined } from "@material-ui/icons";
 import ChannelRow from "../ChannelRow/ChannelRow";
 import VideoRow from "../VideoRow/VideoRow";
 
-import axios from "../../axios";
+import axios from "../../api/axios";
 import { SearchItem, SearchResponse } from "../../types/search";
 
 const SearchPage = () => {

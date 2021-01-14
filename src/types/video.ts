@@ -2,7 +2,6 @@ import { PageInfo, Statistics, Thumbnail } from "./types";
 
 interface Snippet {
   publishedAt: string;
-  channelId: string;
   title: string;
   description: string;
   thumbnails: {
@@ -12,15 +11,16 @@ interface Snippet {
     standard: Thumbnail;
     maxres: Thumbnail;
   };
+  channelId: string;
   channelTitle: string;
+  tags: string[];
 }
 
-export interface VideoItem {
+export interface Item {
   kind: "youtube#video";
   etag: string;
   id: string;
   snippet: Snippet;
-  tags: string[];
   categoryId: string;
   liveBroadcastContent: string;
   localized: {
@@ -34,9 +34,30 @@ export interface VideoItem {
 export interface VideoResponse {
   kind: string;
   etag: string;
-  items: VideoItem[];
+  items: Item[];
   nextPageToken: string;
   pageInfo: PageInfo;
+}
+
+export interface VideoItem {
+  id: string;
+  publishedAt: string;
+  title: string;
+  description: string;
+  tags: string[];
+  thumbnails: {
+    default: Thumbnail;
+    medium: Thumbnail;
+    high: Thumbnail;
+    standard: Thumbnail;
+    maxres: Thumbnail;
+  };
+  channel: {
+    id: string;
+    title: string;
+    thumbnail: string;
+  };
+  statistics: Statistics;
 }
 
 //

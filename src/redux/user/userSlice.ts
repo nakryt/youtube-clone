@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { User } from "../../types/user";
 
-type TUsersState = {
+type UsersState = {
   isLoading: boolean;
   error: string;
   data: User | null;
 };
 
-const initialState: TUsersState = {
+const initialState: UsersState = {
   isLoading: true,
   error: "",
   data: null,

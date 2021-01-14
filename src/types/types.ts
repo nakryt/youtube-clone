@@ -16,3 +16,8 @@ export interface PageInfo {
   totalResults: number;
   resultsPerPage: number;
 }
+
+export enum Chart {
+  chartUnspecified = "chartUnspecified",
+  mostPopular = "mostPopular",
+}

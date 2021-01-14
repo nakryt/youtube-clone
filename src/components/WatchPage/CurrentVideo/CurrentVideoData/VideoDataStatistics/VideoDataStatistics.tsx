@@ -7,6 +7,7 @@ import {
   ThumbDown,
   ThumbUp,
 } from "@material-ui/icons";
+import { numberWithSpaces } from "../../../../../utils";
 
 interface Props {
   likes: string;
@@ -17,10 +18,10 @@ const VideoDataStatistics: FC<Props> = ({ likes, dislikes }) => {
   return (
     <div className="videoDataStatistics">
       <span className="likes">
-        <ThumbUp /> {likes}
+        <ThumbUp /> {numberWithSpaces(likes)}
       </span>
       <span className="dislikes">
-        <ThumbDown /> {dislikes}
+        <ThumbDown /> {numberWithSpaces(dislikes)}
       </span>
       <span className="reply">
         <ReplySharp /> Share

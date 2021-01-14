@@ -1,13 +1,12 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import "./VideoCard.scss";
 
+import { Skeleton } from "@material-ui/lab";
 import { Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import Truncate from "react-truncate";
-
-import axios from "../../axios";
-import { ChannelItem, ChannelResponse } from "../../types/channel";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 interface Props {
   videoId: string;
@@ -15,7 +14,8 @@ interface Props {
   numberOfViews: string;
   timestamp: string;
   imageVideo: string;
-  channelId: string;
+  channelImage: string;
+  channelTitle: string;
 }
 
 const VideoCard: FC<Props> = ({
@@ -24,49 +24,32 @@ const VideoCard: FC<Props> = ({
   numberOfViews,
   timestamp,
   imageVideo,
-  channelId,
+  channelImage,
+  channelTitle,
 }) => {
-  const [channel, setChannel] = useState<ChannelItem>({} as ChannelItem);
-
-  useEffect(() => {
-    const getChannel = async () => {
-      try {
-        const data = (
-          await axios.get("/channels", { params: { id: channelId } })
-        ).data as ChannelResponse;
-        setChannel(data.items[0]);
-      } catch (e) {}
-    };
-    getChannel();
-  }, [channelId]);
-
   return (
     <Link className="videoCard" to={`/watch?v=${videoId}`}>
       <img src={imageVideo} alt="video" className="videoCard__thumbnail" />
 
-      {Object.keys(channel).length > 0 ? (
-        <div className="videoCard__info">
-          <Avatar
-            className="videoCard__avatar"
-            src={channel.snippet.thumbnails.default.url}
-            alt={channel.snippet.title}
-          />
-          <div className="videoCard__text">
-            <h4>
-              <Truncate lines={2} ellipsis={"..."}>
-                {title}
-              </Truncate>
-            </h4>
-            <p className="videoCard__channelName">{channel.snippet.title}</p>
-            <p className="videoCard__numberOfViews">
-              {numberOfViews.toUpperCase()} views
-            </p>
-            <p className="videoCard__timestamp">
-              {moment(timestamp).fromNow()}
-            </p>
-          </div>
+      <div className="videoCard__info">
+        <Avatar
+          className="videoCard__avatar"
+          src={channelImage}
+          alt={channelTitle}
+        />
+        <div className="videoCard__text">
+          <h4>
+            <Truncate lines={2} ellipsis={"..."}>
+              {title}
+            </Truncate>
+          </h4>
+          <p className="videoCard__channelName">{channelTitle}</p>
+          <p className="videoCard__numberOfViews">
+            {numberOfViews.toUpperCase()} views
+          </p>
+          <p className="videoCard__timestamp">{moment(timestamp).fromNow()}</p>
         </div>
-      ) : null}
+      </div>
     </Link>
   );
 };

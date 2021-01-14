@@ -1,50 +1,30 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import "./RecommendedVideos.scss";
 
-import youtube from "../../axios";
-import { VideoResponse, VideoItem } from "../../types/video";
-import VideoCard from "../VideoCard/VideoCard";
+import { useDispatch, useSelector } from "react-redux";
+
 import { prettyPrintStat } from "../../utils";
+import {
+  videoRecommendedSelector,
+  isLoadingSelector,
+  errorSelector,
+} from "../../redux/video/recommended/videoRecommendedSlice";
+import { getVideos as getVideosThunk } from "../../redux/video/recommended/videoRecommendedThunk";
+import VideoCard from "../VideoCard/VideoCard";
 
 const RecommendedVideos = () => {
-  const [loading, setLoading] = useState(true);
-  const [videos, setVideos] = useState<VideoItem[]>([]);
-  const [nextPageToken, setNextPageToken] = useState("");
+  const dispatch = useDispatch();
+  const isLoading = useSelector(isLoadingSelector);
+  const error = useSelector(errorSelector);
+  const videoItems = useSelector(videoRecommendedSelector);
 
-  const getVideos = useCallback(
-    async (pageToken: string = "") => {
-      setLoading(true);
-      try {
-        const data = (
-          await youtube.get("/videos", {
-            params: {
-              part: "snippet,statistics",
-              chart: "mostPopular",
-              maxResults: 20,
-              type: "video",
-              pageToken,
-            },
-          })
-        ).data as VideoResponse;
-
-        setVideos([...videos, ...data.items]);
-
-        if (data.nextPageToken) {
-          setNextPageToken(data.nextPageToken);
-        }
-        setLoading(false);
-      } catch (e) {
-        setLoading(false);
-      }
-    },
-    [videos]
-  );
+  const getVideos = useCallback(() => {
+    dispatch(getVideosThunk());
+  }, [dispatch]);
 
   useEffect(() => {
     let isCancel = false;
-    if (!isCancel) {
-      getVideos();
-    }
+    if (!isCancel) getVideos();
 
     return () => {
       isCancel = true;
@@ -57,13 +37,13 @@ const RecommendedVideos = () => {
   const scrollHandler = useCallback(() => {
     const { current } = mainRef;
     if (
-      !loading &&
+      !isLoading &&
       current &&
       current.offsetHeight <= Number(window.scrollY) + 800
     ) {
-      getVideos(nextPageToken);
+      getVideos();
     }
-  }, [mainRef, getVideos, nextPageToken, loading]);
+  }, [mainRef, getVideos, isLoading]);
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
@@ -75,17 +55,21 @@ const RecommendedVideos = () => {
   return (
     <div className="recommendedVideos">
       <div className="recommendedVideos__videos" ref={mainRef}>
-        {videos.map((v) => (
-          <VideoCard
-            key={v.id}
-            videoId={v.id}
-            title={v.snippet.title}
-            numberOfViews={prettyPrintStat(v.statistics.viewCount)}
-            timestamp={v.snippet.publishedAt}
-            imageVideo={v.snippet.thumbnails.medium.url}
-            channelId={v.snippet.channelId}
-          />
-        ))}
+        {videoItems &&
+          videoItems.map(
+            ({ id, channel, statistics, publishedAt, thumbnails, title }) => (
+              <VideoCard
+                key={id}
+                videoId={id}
+                title={title}
+                numberOfViews={prettyPrintStat(statistics.viewCount)}
+                timestamp={publishedAt}
+                imageVideo={thumbnails.medium ? thumbnails.medium.url : ""}
+                channelImage={channel.thumbnail}
+                channelTitle={channel.title}
+              />
+            )
+          )}
       </div>
     </div>
   );

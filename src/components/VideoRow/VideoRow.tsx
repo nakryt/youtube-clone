@@ -6,7 +6,7 @@ import Truncate from "react-truncate";
 import { Avatar } from "@material-ui/core";
 
 import { ChannelItem, ChannelResponse } from "../../types/channel";
-import axios from "../../axios";
+import axios from "../../api/axios";
 
 interface Props {
   views: string;
