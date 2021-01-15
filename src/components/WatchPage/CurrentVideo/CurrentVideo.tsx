@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { VideoItem } from "../../../types/video";
 import { videoRecommendedSelector } from "../../../redux/video/recommended/videoRecommendedSlice";
 import CurrentVideoData from "./CurrentVideoData/CurrentVideoData";
-import { getVideos } from "../../../redux/video/recommended/videoRecommendedThunk";
+import { getVideo } from "../../../redux/video/recommended/videoRecommendedThunk";
 
 interface Props {
   videoId: string;
@@ -13,19 +13,12 @@ interface Props {
 
 const CurrentVideo: FC<Props> = ({ videoId }) => {
   const dispatch = useDispatch();
-  const [video, setVideo] = useState<VideoItem>({} as VideoItem);
-  const videos = useSelector(videoRecommendedSelector);
 
   useEffect(() => {
-    const video = videos
-      ? videos.find((v) => v.id === videoId) || ({} as VideoItem)
-      : ({} as VideoItem);
-    if (Object.keys(video).length === 0 && videoId) {
-      dispatch(getVideos(videoId));
-    } else {
-      setVideo(video);
-    }
-  }, [videos, videoId, dispatch]);
+    dispatch(getVideo(videoId));
+  }, [videoId, dispatch]);
+
+  const video = useSelector(videoRecommendedSelector)[0];
 
   return (
     <div className="currentVideo">
@@ -37,7 +30,7 @@ const CurrentVideo: FC<Props> = ({ videoId }) => {
         allow="autoplay"
       />
       <div className="currentVideo__info">
-        {video.statistics && (
+        {video && (
           <CurrentVideoData
             data={{
               title: video.title,

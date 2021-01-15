@@ -5,14 +5,14 @@ import { VideoItem } from "../../../types/video";
 type VideoRecommendedState = {
   isLoading: boolean;
   error: string;
-  data: null | VideoItem[];
+  data: VideoItem[];
   nextPageToken: string;
 };
 
 const initialState: VideoRecommendedState = {
   isLoading: false,
   error: "",
-  data: null,
+  data: [],
   nextPageToken: "",
 };
 
@@ -26,18 +26,17 @@ export const videoRecommendedSlice = createSlice({
     setError: (state, { payload }: PayloadAction<string>) => {
       state.error = payload;
     },
-    setVideoItems: (state, { payload }: PayloadAction<VideoItem[] | null>) => {
-      payload &&
-        payload.forEach((v) => {
-          if (!state.data) {
-            state.data = payload;
-            return;
-          }
-          if (state.data.find((videoInState) => videoInState.id === v.id)) {
-            return;
-          }
-          state.data.push(...payload);
-        });
+    setVideoItems: (state, { payload }: PayloadAction<VideoItem[]>) => {
+      if (payload.length === 0) {
+        state.data = [];
+        return;
+      }
+      payload.forEach((v) => {
+        if (state.data.find((videoInState) => videoInState.id === v.id)) {
+          return;
+        }
+        state.data.push(...payload);
+      });
     },
     setNextPageToken: (state, { payload }: PayloadAction<string>) => {
       state.nextPageToken = payload;

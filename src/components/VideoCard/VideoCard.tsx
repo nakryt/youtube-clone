@@ -1,7 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import "./VideoCard.scss";
 
-import { Skeleton } from "@material-ui/lab";
 import { Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -27,9 +26,22 @@ const VideoCard: FC<Props> = ({
   channelImage,
   channelTitle,
 }) => {
+  const { width } = useWindowSize();
+  const imageWidth = (width * 0.75) / 4 - 16;
+  const imageHeight = (imageWidth * 5) / 9;
+
+  const imageRef = useRef<HTMLImageElement>(null);
+
   return (
     <Link className="videoCard" to={`/watch?v=${videoId}`}>
-      <img src={imageVideo} alt="video" className="videoCard__thumbnail" />
+      <img
+        src={imageVideo}
+        alt="video"
+        className="videoCard__thumbnail"
+        width={imageWidth}
+        height={imageHeight}
+        ref={imageRef}
+      />
 
       <div className="videoCard__info">
         <Avatar
@@ -45,7 +57,7 @@ const VideoCard: FC<Props> = ({
           </h4>
           <p className="videoCard__channelName">{channelTitle}</p>
           <p className="videoCard__numberOfViews">
-            {numberOfViews.toUpperCase()} views
+            {numberOfViews && numberOfViews.toUpperCase()} views
           </p>
           <p className="videoCard__timestamp">{moment(timestamp).fromNow()}</p>
         </div>

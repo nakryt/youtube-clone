@@ -33,7 +33,6 @@ export const serializeVideoData = (videoItems: Item[]) =>
 export const numberWithSpaces = (num: number | string) => {
   const arr = String(num).split("").reverse();
   const arrWithSpace = arr.map((s, index) => {
-    console.log(index, s);
     if ((index + 1) % 3 === 0) {
       return ` ${s}`;
     }

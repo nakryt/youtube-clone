@@ -3,33 +3,27 @@ import "./SearchPage.scss";
 
 import { useLocation } from "react-router-dom";
 import { TuneOutlined } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
 
 import ChannelRow from "../ChannelRow/ChannelRow";
-import VideoRow from "../VideoRow/VideoRow";
 
-import axios from "../../api/axios";
-import { SearchItem, SearchResponse } from "../../types/search";
+import VideoRow from "../VideoRow/VideoRow";
+import { SearchItem } from "../../types/search";
+import videoAPI from "../../api/videoAPI";
+import { setVideoItems } from "../../redux/video/recommended/videoRecommendedSlice";
 
 const SearchPage = () => {
+  const dispatch = useDispatch();
   const [items, setItems] = useState<SearchItem[]>([]);
   const location = useLocation();
   const query = location.search.substr(3).replace("%3F", "?");
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        const data = (
-          await axios.get("/search", {
-            params: {
-              q: query,
-              type: "video",
-              maxResults: 20,
-            },
-          })
-        ).data as SearchResponse;
-        setItems(data.items);
-      } catch (e) {}
+      const data = await videoAPI.search(query);
+      data && setItems(data);
     };
+    dispatch(setVideoItems([]));
     getData();
   }, [query]);
 
@@ -55,16 +49,18 @@ const SearchPage = () => {
 
       <div className="content">
         {items.map((v) => (
-          <VideoRow
-            views="100K"
-            subs="100K"
-            description={v.snippet.description}
-            timestamp={v.snippet.publishedAt}
-            title={v.snippet.title}
-            image={v.snippet.thumbnails.default.url}
-            channelId={v.snippet.channelId}
-            videoId={v.id.videoId}
-          />
+          <div key={v.id.videoId}>
+            <VideoRow
+              views="100K"
+              subs="100K"
+              description={v.snippet.description}
+              timestamp={v.snippet.publishedAt}
+              title={v.snippet.title}
+              image={v.snippet.thumbnails.default.url}
+              channelId={v.snippet.channelId}
+              videoId={v.id.videoId}
+            />
+          </div>
         ))}
       </div>
     </div>

@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import userReducer from "./user/userSlice";
 import videoRecommended from "./video/recommended/videoRecommendedSlice";
+import indicators from "./indicators";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     video: videoRecommended,
+    indicators,
   },
 });
 

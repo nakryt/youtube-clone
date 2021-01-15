@@ -12,7 +12,7 @@ import {
 
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
-import RecommendedVideos from "./components/RecommendedVideos/RecommendedVideos";
+import AllVideos from "./components/AllVideos/AllVideos";
 import SearchPage from "./components/SearchPage/SearchPage";
 import WatchPage from "./components/WatchPage/WatchPage";
 import { store } from "./redux/store";
@@ -34,7 +34,7 @@ function App() {
 
             <Route path="/">
               <Sidebar />
-              <RecommendedVideos />
+              <AllVideos />
             </Route>
 
             <Redirect to="/" />

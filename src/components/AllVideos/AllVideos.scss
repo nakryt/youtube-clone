@@ -5,6 +5,7 @@
   flex: 0.9;
   padding: 1.2rem;
   background-color: $background-gray;
+  min-height: 100vh;
 
   .recommendedVideos__videos {
     display: grid;

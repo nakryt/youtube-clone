@@ -6,6 +6,7 @@ import {
   setChannelThumbnail,
   setIsLoading,
 } from "./videoRecommendedSlice";
+import { setError } from "../../indicators";
 import { serializeVideoData } from "../../../utils";
 
 export const setVideoChannelThumbnails = (): AppThunk => async (
@@ -27,7 +28,22 @@ export const setVideoChannelThumbnails = (): AppThunk => async (
   } catch (e) {}
 };
 
-export const getVideos = (id?: string): AppThunk => async (
+export const getVideos = (): AppThunk => async (dispatch, getState) => {
+  const { video } = getState();
+  try {
+    if (video.isLoading) return;
+    dispatch(setIsLoading(true));
+    const data = await videoAPI.getVideos(video.nextPageToken);
+    await dispatch(setVideoItems(serializeVideoData(data.items)));
+    dispatch(setNextPageToken(data.nextPageToken));
+    await dispatch(setVideoChannelThumbnails());
+    dispatch(setIsLoading(false));
+  } catch (e) {
+    dispatch(setIsLoading(false));
+    console.log("ERROR:", e);
+  }
+};
+export const getVideo = (id: string): AppThunk => async (
   dispatch,
   getState
 ) => {
@@ -35,12 +51,12 @@ export const getVideos = (id?: string): AppThunk => async (
   try {
     if (video.isLoading) return;
     dispatch(setIsLoading(true));
-    const data = await videoAPI.getVideos(id, video.nextPageToken);
+    const data = await videoAPI.getVideo(id);
     await dispatch(setVideoItems(serializeVideoData(data.items)));
-    dispatch(setNextPageToken(data.nextPageToken));
     await dispatch(setVideoChannelThumbnails());
     dispatch(setIsLoading(false));
   } catch (e) {
     dispatch(setIsLoading(false));
+    // dispatch(setError(e.message))
   }
 };

@@ -7,6 +7,7 @@ import { Avatar } from "@material-ui/core";
 
 import { ChannelItem, ChannelResponse } from "../../types/channel";
 import axios from "../../api/axios";
+import videoAPI from "../../api/videoAPI";
 
 interface Props {
   views: string;
@@ -33,12 +34,8 @@ const VideoRow: FC<Props> = ({
 
   useEffect(() => {
     const getChannel = async () => {
-      try {
-        const data = (
-          await axios.get("/channels", { params: { id: channelId } })
-        ).data as ChannelResponse;
-        setChannel(data.items[0]);
-      } catch (e) {}
+      const data = await videoAPI.getChannel(channelId);
+      setChannel(data.items[0]);
     };
     getChannel();
   }, [channelId]);
@@ -51,7 +48,7 @@ const VideoRow: FC<Props> = ({
         <p className="videoRow__headline">
           {views} views {timestamp}
         </p>
-        <p className="videoRow__channel">
+        <div className="videoRow__channel">
           {Object.keys(channel).length > 0 ? (
             <>
               <Avatar
@@ -66,7 +63,7 @@ const VideoRow: FC<Props> = ({
               </span>
             </>
           ) : null}
-        </p>
+        </div>
         <p className="videoRow__description">
           <Truncate lines={2} ellipsis={"..."}>
             {description}

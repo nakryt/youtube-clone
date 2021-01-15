@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef } from "react";
-import "./RecommendedVideos.scss";
+import "./AllVideos.scss";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,11 +8,12 @@ import {
   videoRecommendedSelector,
   isLoadingSelector,
   errorSelector,
+  setVideoItems,
 } from "../../redux/video/recommended/videoRecommendedSlice";
 import { getVideos as getVideosThunk } from "../../redux/video/recommended/videoRecommendedThunk";
 import VideoCard from "../VideoCard/VideoCard";
 
-const RecommendedVideos = () => {
+const AllVideos = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isLoadingSelector);
   const error = useSelector(errorSelector);
@@ -23,6 +24,7 @@ const RecommendedVideos = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    dispatch(setVideoItems([]));
     let isCancel = false;
     if (!isCancel) getVideos();
 
@@ -30,7 +32,7 @@ const RecommendedVideos = () => {
       isCancel = true;
     };
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch]);
 
   const mainRef = useRef<HTMLDivElement>(null);
 
@@ -62,7 +64,9 @@ const RecommendedVideos = () => {
                 key={id}
                 videoId={id}
                 title={title}
-                numberOfViews={prettyPrintStat(statistics.viewCount)}
+                numberOfViews={
+                  statistics ? prettyPrintStat(statistics.viewCount) : ""
+                }
                 timestamp={publishedAt}
                 imageVideo={thumbnails.medium ? thumbnails.medium.url : ""}
                 channelImage={channel.thumbnail}
@@ -75,4 +79,4 @@ const RecommendedVideos = () => {
   );
 };
 
-export default RecommendedVideos;
+export default AllVideos;
