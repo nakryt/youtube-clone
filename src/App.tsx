@@ -16,8 +16,11 @@ import AllVideos from "./components/AllVideos/AllVideos";
 import SearchPage from "./components/SearchPage/SearchPage";
 import WatchPage from "./components/WatchPage/WatchPage";
 import { store } from "./redux/store";
+import { useWindowSize } from "./hooks/useWindowSize";
 
 function App() {
+  const { width } = useWindowSize();
+  const sidebar = width > 792 ? <Sidebar /> : null;
   return (
     <Router>
       <div className="app">
@@ -28,12 +31,12 @@ function App() {
             <Route path="/watch" component={WatchPage} />
 
             <Route path="/search">
-              <Sidebar />
+              {sidebar}
               <SearchPage />
             </Route>
 
             <Route path="/">
-              <Sidebar />
+              {sidebar}
               <AllVideos />
             </Route>
 

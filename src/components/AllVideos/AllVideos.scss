@@ -2,7 +2,7 @@
 @import "src/style/breakpoints";
 
 .recommendedVideos {
-  flex: 0.9;
+  flex: 1;
   padding: 1.2rem;
   background-color: $background-gray;
   min-height: 100vh;
@@ -15,6 +15,9 @@
 
     @include for-desktop-down {
       grid-template-columns: repeat(3, 1fr);
+    }
+    @include for-tablet-large-down {
+      grid-template-columns: repeat(2, 1fr);
     }
     //@include for-desktop-down {
     //  grid-template-columns: repeat(3, 1fr);

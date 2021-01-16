@@ -28,7 +28,7 @@ const getVideos = async (pageToken?: string, chart?: Chart) => {
   ).data as VideoResponse;
 };
 
-const getVideo = async (id?: string) => {
+const getVideo = async (id: string) => {
   return (
     await youtube.get("/videos", {
       params: {
@@ -46,21 +46,22 @@ const getChannel = async (channelId: string) => {
 };
 
 const search = async (query: string) => {
-  const data = (
+  return (
     await axios.get("/search", {
       params: {
         q: query,
         type: "video",
-        maxResults: 5,
+        maxResults: 20,
       },
     })
   ).data as SearchResponse;
-  return data.items;
 };
 
-export default {
+const videoAPI = {
   getVideo,
   getVideos,
   getChannel,
   search,
 };
+
+export default videoAPI;

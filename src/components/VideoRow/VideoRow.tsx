@@ -1,13 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import "./VideoRow.scss";
 
 import { Link } from "react-router-dom";
 import Truncate from "react-truncate";
 import { Avatar } from "@material-ui/core";
 
-import { ChannelItem, ChannelResponse } from "../../types/channel";
-import axios from "../../api/axios";
-import videoAPI from "../../api/videoAPI";
+import { ChannelItem } from "../../types/channel";
 
 interface Props {
   views: string;
@@ -16,7 +14,7 @@ interface Props {
   timestamp: string;
   title: string;
   image: string;
-  channelId: string;
+  channel: ChannelItem;
   videoId: string;
 }
 
@@ -27,19 +25,9 @@ const VideoRow: FC<Props> = ({
   subs,
   image,
   description,
-  channelId,
+  channel,
   videoId,
 }) => {
-  const [channel, setChannel] = useState<ChannelItem>({} as ChannelItem);
-
-  useEffect(() => {
-    const getChannel = async () => {
-      const data = await videoAPI.getChannel(channelId);
-      setChannel(data.items[0]);
-    };
-    getChannel();
-  }, [channelId]);
-
   return (
     <Link className="videoRow" to={`/watch?v=${videoId}`}>
       <img src={image} alt={title} />

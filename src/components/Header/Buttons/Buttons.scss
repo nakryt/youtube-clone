@@ -1,4 +1,5 @@
 @import "src/style/color";
+@import "src/style/breakpoints";
 
 .header__buttons {
   & > div {
@@ -27,6 +28,10 @@
 
       &:last-of-type {
         margin-right: 0.8rem;
+      }
+
+      @include for-tablet-down {
+        margin-right: 0;
       }
     }
 

@@ -24,7 +24,7 @@ export const serializeVideoData = (videoItems: Item[]) =>
     thumbnails: v.snippet.thumbnails,
     channel: {
       id: v.snippet.channelId,
-      title: v.snippet.channelTitle,
+      snippet: { title: v.snippet.channelTitle },
     },
     statistics: v.statistics,
     tags: v.snippet.tags,

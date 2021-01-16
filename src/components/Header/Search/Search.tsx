@@ -1,19 +1,24 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import "./Search.scss";
 
 import { Keyboard, Search as SearchIcon, Mic } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchQuery } from "../../../redux/search/searchThunk";
+import { searchQuerySelector } from "../../../redux/search/searchSlice";
 
 const Search = () => {
   const history = useHistory();
-  const [inputSearch, setInputSearch] = useState("");
+  const dispatch = useDispatch();
+  const searchQuery = useSelector(searchQuerySelector);
 
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(e.target.value));
+  };
   const submitHandler = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (inputSearch.trim()) {
-      history.push(`/search?q=${inputSearch.replace("?", "%3F")}`);
-    }
+    history.push(`/search`);
   };
 
   return (
@@ -23,8 +28,8 @@ const Search = () => {
           className="search__input"
           type="text"
           placeholder="Search"
-          value={inputSearch}
-          onChange={(e) => setInputSearch(e.target.value)}
+          value={searchQuery}
+          onChange={changeHandler}
         />
         <Keyboard className="keyboard" />
         <button className="search__inputButton" type="submit">

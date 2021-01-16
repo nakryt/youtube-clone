@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./SearchPage.scss";
 
-import { useLocation } from "react-router-dom";
 import { TuneOutlined } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ChannelRow from "../ChannelRow/ChannelRow";
 
-import VideoRow from "../VideoRow/VideoRow";
-import { SearchItem } from "../../types/search";
-import videoAPI from "../../api/videoAPI";
+import { searchItemsSelector } from "../../redux/search/searchSlice";
+import {
+  getSearchedVideos,
+  setSearchDefaultValues,
+} from "../../redux/search/searchThunk";
 import { setVideoItems } from "../../redux/video/recommended/videoRecommendedSlice";
+import VideoRow from "../VideoRow/VideoRow";
 
 const SearchPage = () => {
   const dispatch = useDispatch();
-  const [items, setItems] = useState<SearchItem[]>([]);
-  const location = useLocation();
-  const query = location.search.substr(3).replace("%3F", "?");
+  const items = useSelector(searchItemsSelector);
 
   useEffect(() => {
-    const getData = async () => {
-      const data = await videoAPI.search(query);
-      data && setItems(data);
-    };
+    dispatch(getSearchedVideos());
     dispatch(setVideoItems([]));
-    getData();
-  }, [query]);
+
+    return () => {
+      dispatch(setSearchDefaultValues());
+    };
+  }, [dispatch]);
 
   return (
     <div className="searchPage">
@@ -49,16 +49,16 @@ const SearchPage = () => {
 
       <div className="content">
         {items.map((v) => (
-          <div key={v.id.videoId}>
+          <div key={v.id}>
             <VideoRow
               views="100K"
               subs="100K"
-              description={v.snippet.description}
-              timestamp={v.snippet.publishedAt}
-              title={v.snippet.title}
-              image={v.snippet.thumbnails.default.url}
-              channelId={v.snippet.channelId}
-              videoId={v.id.videoId}
+              description={v.description}
+              timestamp={v.publishedAt}
+              title={v.title}
+              image={v.thumbnails.default.url}
+              channel={v.channel}
+              videoId={v.id}
             />
           </div>
         ))}

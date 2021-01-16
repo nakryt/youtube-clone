@@ -1,10 +1,21 @@
 @import "src/style/color";
+@import "src/style/breakpoints";
 
 .search {
-  width: 50%;
   display: flex;
+  flex: 1;
   align-items: center;
   margin-left: 50px;
+  margin-right: 3rem;
+  max-width: 728px;
+
+  @include for-tablet-down {
+    margin-left: 1.2rem;
+    margin-right: 0.5rem;
+  }
+  @include for-tablet-large-down {
+    max-width: 280px;
+  }
 
   .search__form {
     display: flex;

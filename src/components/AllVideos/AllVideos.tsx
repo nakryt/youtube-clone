@@ -69,8 +69,8 @@ const AllVideos = () => {
                 }
                 timestamp={publishedAt}
                 imageVideo={thumbnails.medium ? thumbnails.medium.url : ""}
-                channelImage={channel.thumbnail}
-                channelTitle={channel.title}
+                channelImage={channel.snippet.thumbnails?.default?.url}
+                channelTitle={channel.snippet.title}
               />
             )
           )}
