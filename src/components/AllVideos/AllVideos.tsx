@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { prettyPrintStat } from "../../utils";
 import {
-  videoRecommendedSelector,
+  videoSelector,
   isLoadingSelector,
   setVideoItems,
 } from "../../redux/video/videoSlice";
@@ -16,7 +16,7 @@ import { setSearchDefaultValues } from "../../redux/search/searchThunk";
 const AllVideos = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isLoadingSelector);
-  const videoItems = useSelector(videoRecommendedSelector);
+  const videoItems = useSelector(videoSelector);
 
   const getVideos = useCallback(() => {
     dispatch(getVideosThunk());

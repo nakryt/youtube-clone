@@ -1,7 +1,7 @@
 import numeral from "numeral";
 import firebase from "firebase";
 import { User } from "./types/user";
-import { VideoItem, Item, VideoResponse } from "./types/video";
+import { VideoItem, Item, VideoResponse, ItemResponse } from "./types/video";
 import { RelatedVideoResponse, RelatedVideosItem } from "./types/relatedVideos";
 import { Statistics } from "./types/types";
 
@@ -17,7 +17,7 @@ export const serializeUserData = (userData: firebase.User) =>
     refreshToken: userData.refreshToken,
   } as User);
 
-export const serializeVideoData = (items: Item[]): VideoItem[] => {
+export const serializeVideoData = (items: ItemResponse[]): VideoItem[] => {
   return items.map((v) => ({
     id: v.id,
     title: v.snippet.title,
@@ -30,6 +30,7 @@ export const serializeVideoData = (items: Item[]): VideoItem[] => {
     },
     statistics: v.statistics,
     tags: v.snippet.tags,
+    categoryId: v.snippet.categoryId,
   })) as VideoItem[];
 };
 

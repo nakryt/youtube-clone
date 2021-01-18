@@ -3,7 +3,6 @@ import "./CurrentVideoData.scss";
 
 import numeral from "numeral";
 import VideoDataStatistics from "./VideoDataStatistics/VideoDataStatistics";
-import { numberWithSpaces } from "../../../../utils";
 
 interface Props {
   data: {

@@ -31,14 +31,14 @@ export interface Item {
   defaultAudioLanguage: string;
   statistics: Statistics;
 }
-
-export interface VideoResponse {
-  kind: "youtube#videoListResponse";
-  etag: string;
-  items: Item[];
-  nextPageToken: string;
-  pageInfo: PageInfo;
-}
+//
+// export interface VideoResponse {
+//   // kind: "youtube#videoListResponse";
+//   etag: string;
+//   items: Item[];
+//   nextPageToken: string;
+//   // pageInfo: PageInfo;
+// }
 
 export interface VideoItem {
   id: string;
@@ -55,4 +55,34 @@ export interface VideoItem {
   };
   channel: ChannelItem;
   statistics: Statistics;
+  categoryId: string;
+}
+// items(etag,id,statistics(viewCount,likeCount,dislikeCount),snippet(publishedAt,categoryId,title,description,thumbnails(medium),channelId,channelTitle,tags)),nextPageToken,etag
+
+export interface VideoResponse {
+  etag: string;
+  items: ItemResponse[];
+  nextPageToken: string;
+}
+
+export interface ItemResponse {
+  etag: string;
+  id: string;
+  statistics: {
+    viewCount: string;
+    likeCount: string;
+    dislikeCount: string;
+  };
+  snippet: {
+    publishedAt: string;
+    title: string;
+    description: string;
+    thumbnails: {
+      medium: Thumbnail;
+    };
+    channelId: string;
+    channelTitle: string;
+    tags: string[];
+    categoryId: string;
+  };
 }

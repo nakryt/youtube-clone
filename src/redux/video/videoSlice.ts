@@ -66,7 +66,7 @@ export const {
 
 export const isLoadingSelector = ({ video }: RootState) => video.isLoading;
 export const errorSelector = ({ video }: RootState) => video.error;
-export const videoRecommendedSelector = ({ video }: RootState) => video.data;
+export const videoSelector = ({ video }: RootState) => video.data;
 export const nextPageTokenSelector = ({ video }: RootState) =>
   video.nextPageToken;
 

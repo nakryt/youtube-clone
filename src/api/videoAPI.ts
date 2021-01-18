@@ -13,15 +13,24 @@ interface RequestParams {
   chart?: Chart;
   maxResults?: number;
   pageToken?: string;
+  fields?: string;
+  videoCategoryId?: string;
 }
 
-const getVideos = async (pageToken: string) => {
+const thumbnails = "thumbnails(medium)";
+const snippet = `snippet(publishedAt,title,description,${thumbnails},categoryId,channelId,channelTitle,tags)`;
+const items = `items(etag,id,statistics(viewCount,likeCount,dislikeCount),${snippet})`;
+const fields = `${items},nextPageToken,etag`;
+
+const getVideos = async (pageToken: string, videoCategoryId?: string) => {
   const params: RequestParams = {
     part: `snippet,statistics`,
     type: "video",
+    fields,
   };
-  if (pageToken) params.pageToken = pageToken;
   params.chart = Chart.mostPopular;
+  if (pageToken) params.pageToken = pageToken;
+  if (videoCategoryId) params.videoCategoryId = videoCategoryId;
   return (
     await youtube.get("/videos", {
       params,
@@ -36,6 +45,7 @@ const getVideo = async (id: string) => {
         type: "video",
         id,
         part: "snippet,statistics",
+        fields,
       },
     })
   ).data as VideoResponse;

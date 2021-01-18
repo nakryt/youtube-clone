@@ -1,24 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import "./CurrentVideo.scss";
 
-import { useSelector, useDispatch } from "react-redux";
-import { VideoItem } from "../../../types/video";
-import { videoRecommendedSelector } from "../../../redux/video/videoSlice";
+import { useSelector } from "react-redux";
+import { videoSelector } from "../../../redux/video/videoSlice";
 import CurrentVideoData from "./CurrentVideoData/CurrentVideoData";
-import { getVideo } from "../../../redux/video/videoThunk";
 
 interface Props {
   videoId: string;
 }
 
 const CurrentVideo: FC<Props> = ({ videoId }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getVideo(videoId));
-  }, [videoId, dispatch]);
-
-  const video = useSelector(videoRecommendedSelector)[0];
+  const video = useSelector(videoSelector)[0];
 
   return (
     <div className="currentVideo">
