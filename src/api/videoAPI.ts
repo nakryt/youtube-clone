@@ -4,23 +4,24 @@ import { Chart } from "../types/types";
 import { ChannelResponse } from "../types/channel";
 import axios from "./axios";
 import { SearchResponse } from "../types/search";
+import { RelatedVideoResponse } from "../types/relatedVideos";
 
 interface RequestParams {
   part: string;
-  chart?: Chart;
-  maxResults: number;
   type: string;
+  relatedToVideoId?: string;
+  chart?: Chart;
+  maxResults?: number;
   pageToken?: string;
 }
 
-const getVideos = async (pageToken?: string, chart?: Chart) => {
+const getVideos = async (pageToken: string) => {
   const params: RequestParams = {
-    part: "snippet,statistics",
-    maxResults: 20,
+    part: `snippet,statistics`,
     type: "video",
   };
   if (pageToken) params.pageToken = pageToken;
-  params.chart = chart || Chart.mostPopular;
+  params.chart = Chart.mostPopular;
   return (
     await youtube.get("/videos", {
       params,
@@ -51,7 +52,6 @@ const search = async (query: string) => {
       params: {
         q: query,
         type: "video",
-        maxResults: 20,
       },
     })
   ).data as SearchResponse;

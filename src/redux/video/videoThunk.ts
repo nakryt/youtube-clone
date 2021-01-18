@@ -1,13 +1,15 @@
-import { AppThunk } from "../../store";
-import videoAPI from "../../../api/videoAPI";
+import { AppThunk } from "../store";
+import videoAPI from "../../api/videoAPI";
 import {
   setVideoItems,
   setNextPageToken,
-  setChannelThumbnail,
+  setChannel,
   setIsLoading,
-} from "./videoRecommendedSlice";
-import { setError } from "../../indicators";
-import { serializeVideoData } from "../../../utils";
+} from "./videoSlice";
+import { setError } from "../indicators";
+import { serializeVideoData } from "../../utils";
+import { VideoResponse } from "../../types/video";
+import { RelatedVideoResponse } from "../../types/relatedVideos";
 
 export const setVideoChannelThumbnails = (): AppThunk => async (
   dispatch,
@@ -15,16 +17,15 @@ export const setVideoChannelThumbnails = (): AppThunk => async (
 ) => {
   const { video } = getState();
   try {
-    video.data &&
-      video.data.forEach(async ({ channel, id }) => {
-        const data = await videoAPI.getChannel(channel.id);
-        dispatch(
-          setChannelThumbnail({
-            videoId: id,
-            thumbnail: data.items[0].snippet.thumbnails.default.url,
-          })
-        );
-      });
+    video.data.forEach(async ({ channel, id }) => {
+      const data = await videoAPI.getChannel(channel.id);
+      dispatch(
+        setChannel({
+          videoId: id,
+          channel: data.items[0],
+        })
+      );
+    });
   } catch (e) {}
 };
 
@@ -33,7 +34,9 @@ export const getVideos = (): AppThunk => async (dispatch, getState) => {
   try {
     if (video.isLoading) return;
     dispatch(setIsLoading(true));
+
     const data = await videoAPI.getVideos(video.nextPageToken);
+
     await dispatch(setVideoItems(serializeVideoData(data.items)));
     dispatch(setNextPageToken(data.nextPageToken));
     await dispatch(setVideoChannelThumbnails());

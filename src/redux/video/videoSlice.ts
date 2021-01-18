@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "../../store";
-import { VideoItem } from "../../../types/video";
+import { RootState } from "../store";
+import { VideoItem } from "../../types/video";
+import { ChannelItem } from "../../types/channel";
 
 type VideoRecommendedState = {
   isLoading: boolean;
@@ -16,7 +17,7 @@ const initialState: VideoRecommendedState = {
   nextPageToken: "",
 };
 
-export const videoRecommendedSlice = createSlice({
+export const videoSlice = createSlice({
   name: "videoRecommended",
   initialState,
   reducers: {
@@ -41,22 +42,16 @@ export const videoRecommendedSlice = createSlice({
     setNextPageToken: (state, { payload }: PayloadAction<string>) => {
       state.nextPageToken = payload;
     },
-    setChannelThumbnail: (
+    setChannel: (
       state,
-      { payload }: PayloadAction<{ videoId: string; thumbnail: string }>
+      { payload }: PayloadAction<{ videoId: string; channel: ChannelItem }>
     ) => {
-      if (state.data) {
-        state.data = state.data.map((v) => {
-          if (v.id === payload.videoId) {
-            return {
-              ...v,
-              channel: { ...v.channel, thumbnail: payload.thumbnail },
-            };
-          } else {
-            return v;
-          }
-        });
-      }
+      state.data = state.data.map((v) => {
+        if (v.id === payload.videoId) {
+          return { ...v, channel: payload.channel };
+        }
+        return v;
+      });
     },
   },
 });
@@ -66,8 +61,8 @@ export const {
   setVideoItems,
   setError,
   setNextPageToken,
-  setChannelThumbnail,
-} = videoRecommendedSlice.actions;
+  setChannel,
+} = videoSlice.actions;
 
 export const isLoadingSelector = ({ video }: RootState) => video.isLoading;
 export const errorSelector = ({ video }: RootState) => video.error;
@@ -75,4 +70,4 @@ export const videoRecommendedSelector = ({ video }: RootState) => video.data;
 export const nextPageTokenSelector = ({ video }: RootState) =>
   video.nextPageToken;
 
-export default videoRecommendedSlice.reducer;
+export default videoSlice.reducer;

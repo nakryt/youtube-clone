@@ -1,7 +1,9 @@
 import numeral from "numeral";
 import firebase from "firebase";
 import { User } from "./types/user";
-import { VideoItem, Item } from "./types/video";
+import { VideoItem, Item, VideoResponse } from "./types/video";
+import { RelatedVideoResponse, RelatedVideosItem } from "./types/relatedVideos";
+import { Statistics } from "./types/types";
 
 export const prettyPrintStat = (stat: number | string) =>
   stat ? `${numeral(stat).format("0.0a")}` : "0";
@@ -15,8 +17,8 @@ export const serializeUserData = (userData: firebase.User) =>
     refreshToken: userData.refreshToken,
   } as User);
 
-export const serializeVideoData = (videoItems: Item[]) =>
-  videoItems.map((v) => ({
+export const serializeVideoData = (items: Item[]): VideoItem[] => {
+  return items.map((v) => ({
     id: v.id,
     title: v.snippet.title,
     description: v.snippet.description,
@@ -29,6 +31,7 @@ export const serializeVideoData = (videoItems: Item[]) =>
     statistics: v.statistics,
     tags: v.snippet.tags,
   })) as VideoItem[];
+};
 
 export const numberWithSpaces = (num: number | string) => {
   const arr = String(num).split("").reverse();

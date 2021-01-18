@@ -32,6 +32,10 @@
 
       @include for-tablet-down {
         margin-right: 0;
+        padding: {
+          left: 0.2rem;
+          right: 0.2rem;
+        }
       }
     }
 

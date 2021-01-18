@@ -1,7 +1,7 @@
 import { PageInfo, Statistics, Thumbnail } from "./types";
 import { ChannelItem } from "./channel";
 
-interface Snippet {
+export interface Snippet {
   publishedAt: string;
   title: string;
   description: string;
@@ -33,7 +33,7 @@ export interface Item {
 }
 
 export interface VideoResponse {
-  kind: string;
+  kind: "youtube#videoListResponse";
   etag: string;
   items: Item[];
   nextPageToken: string;

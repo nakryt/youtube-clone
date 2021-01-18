@@ -3,9 +3,9 @@ import "./CurrentVideo.scss";
 
 import { useSelector, useDispatch } from "react-redux";
 import { VideoItem } from "../../../types/video";
-import { videoRecommendedSelector } from "../../../redux/video/recommended/videoRecommendedSlice";
+import { videoRecommendedSelector } from "../../../redux/video/videoSlice";
 import CurrentVideoData from "./CurrentVideoData/CurrentVideoData";
-import { getVideo } from "../../../redux/video/recommended/videoRecommendedThunk";
+import { getVideo } from "../../../redux/video/videoThunk";
 
 interface Props {
   videoId: string;

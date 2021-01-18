@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import "./WatchPage.scss";
 
 import { useLocation } from "react-router-dom";
-import RelativeVideos from "./RelativeVideos/RelativeVideos";
 import CurrentVideo from "./CurrentVideo/CurrentVideo";
-import { setVideoItems } from "../../redux/video/recommended/videoRecommendedSlice";
+import { setVideoItems } from "../../redux/video/videoSlice";
 import { useDispatch } from "react-redux";
+import RelatedVideos from "../RelatedVideos/RelatedVideos";
 
 const WatchPage = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const WatchPage = () => {
   return (
     <div className="watchPage">
       <CurrentVideo videoId={videoId} />
-      <RelativeVideos />
+      <RelatedVideos />
     </div>
   );
 };

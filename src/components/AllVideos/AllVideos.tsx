@@ -7,16 +7,15 @@ import { prettyPrintStat } from "../../utils";
 import {
   videoRecommendedSelector,
   isLoadingSelector,
-  errorSelector,
   setVideoItems,
-} from "../../redux/video/recommended/videoRecommendedSlice";
-import { getVideos as getVideosThunk } from "../../redux/video/recommended/videoRecommendedThunk";
+} from "../../redux/video/videoSlice";
+import { getVideos as getVideosThunk } from "../../redux/video/videoThunk";
 import VideoCard from "../VideoCard/VideoCard";
+import { setSearchDefaultValues } from "../../redux/search/searchThunk";
 
 const AllVideos = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(isLoadingSelector);
-  const error = useSelector(errorSelector);
   const videoItems = useSelector(videoRecommendedSelector);
 
   const getVideos = useCallback(() => {
@@ -25,6 +24,7 @@ const AllVideos = () => {
 
   useEffect(() => {
     dispatch(setVideoItems([]));
+    dispatch(setSearchDefaultValues());
     let isCancel = false;
     if (!isCancel) getVideos();
 
@@ -38,6 +38,7 @@ const AllVideos = () => {
 
   const scrollHandler = useCallback(() => {
     const { current } = mainRef;
+    current && console.log("Offset:", current.offsetHeight);
     if (
       !isLoading &&
       current &&

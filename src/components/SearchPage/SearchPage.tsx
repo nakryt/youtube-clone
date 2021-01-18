@@ -11,7 +11,7 @@ import {
   getSearchedVideos,
   setSearchDefaultValues,
 } from "../../redux/search/searchThunk";
-import { setVideoItems } from "../../redux/video/recommended/videoRecommendedSlice";
+import { setVideoItems } from "../../redux/video/videoSlice";
 import VideoRow from "../VideoRow/VideoRow";
 
 const SearchPage = () => {

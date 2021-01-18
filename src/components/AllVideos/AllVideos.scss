@@ -19,8 +19,8 @@
     @include for-tablet-large-down {
       grid-template-columns: repeat(2, 1fr);
     }
-    //@include for-desktop-down {
-    //  grid-template-columns: repeat(3, 1fr);
-    //}
+    @include for-mobile-large-down {
+      grid-template-columns: 1fr;
+    }
   }
 }
