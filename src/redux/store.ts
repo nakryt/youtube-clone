@@ -1,13 +1,19 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  combineReducers,
+} from "@reduxjs/toolkit";
 import indicators from "./indicators";
 import userReducer from "./user/userSlice";
-import videoRecommended from "./video/videoSlice";
+import allVideo from "./video/videoSlice";
+import relatedVideo from "./video/relatedVideo/relatedVideoSlice";
 import search from "./search/searchSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    video: videoRecommended,
+    video: combineReducers({ all: allVideo, related: relatedVideo }),
     indicators,
     search,
   },

@@ -21,7 +21,7 @@ export const getSearchedVideos = (): AppThunk => async (dispatch, getState) => {
 
     const videoItems = data.items.map(async (item) => {
       const videoResponse = await videoAPI.getVideo(item.id.videoId);
-      const video = serializeVideoData(videoResponse.items);
+      const video = serializeVideoData(videoResponse);
       const videoData = video.map(async (v) => {
         const channelData = await videoAPI.getChannel(v.channel.id);
         return { ...v, channel: channelData.items[0] };

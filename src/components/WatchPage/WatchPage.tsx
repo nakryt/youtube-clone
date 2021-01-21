@@ -4,8 +4,9 @@ import "./WatchPage.scss";
 import { useLocation } from "react-router-dom";
 import CurrentVideo from "./CurrentVideo/CurrentVideo";
 import { useDispatch } from "react-redux";
+import { getVideo } from "../../redux/video/videoThunk";
+import { getRelatedVideos } from "../../redux/video/relatedVideo/relatedVideoThunk";
 import RelatedVideos from "../RelatedVideos/RelatedVideos";
-import { getRelatedVideos, getVideo } from "../../redux/video/videoThunk";
 
 const WatchPage = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const WatchPage = () => {
   useEffect(() => {
     dispatch(getVideo(videoId));
     dispatch(getRelatedVideos(videoId));
+    window.scrollTo({ left: 0, top: 0 });
   }, [dispatch, videoId]);
 
   return (

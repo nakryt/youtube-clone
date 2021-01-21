@@ -1,8 +1,9 @@
 import numeral from "numeral";
 import firebase from "firebase";
 import { User } from "./types/user";
-import { VideoItem, Item, VideoResponse, ItemResponse } from "./types/video";
-import { RelatedVideoResponse, RelatedVideosItem } from "./types/relatedVideos";
+import { VideoItem, VideoResponse } from "./types/video";
+import { SearchResponse } from "./types/search";
+import { ChannelItem } from "./types/channel";
 import { Statistics } from "./types/types";
 
 export const prettyPrintStat = (stat: number | string) =>
@@ -17,21 +18,54 @@ export const serializeUserData = (userData: firebase.User) =>
     refreshToken: userData.refreshToken,
   } as User);
 
-export const serializeVideoData = (items: ItemResponse[]): VideoItem[] => {
-  return items.map((v) => ({
-    id: v.id,
-    title: v.snippet.title,
-    description: v.snippet.description,
-    publishedAt: v.snippet.publishedAt,
-    thumbnails: v.snippet.thumbnails,
-    channel: {
-      id: v.snippet.channelId,
-      snippet: { title: v.snippet.channelTitle },
-    },
-    statistics: v.statistics,
-    tags: v.snippet.tags,
-    categoryId: v.snippet.categoryId,
-  })) as VideoItem[];
+// const thumbnail = {
+//   url: '',
+//   width: 0,
+//   height: 0,
+// }
+// const channelThumbnails = {
+//   default: thumbnail,
+//   medium: thumbnail,
+//   high: thumbnail
+// }
+export const serializeVideoData = (
+  response: VideoResponse | SearchResponse
+): VideoItem[] => {
+  if (response.kind === "youtube#videoListResponse") {
+    return response.items.map((v) => ({
+      id: v.id,
+      title: v.snippet.title,
+      description: v.snippet.description,
+      publishedAt: v.snippet.publishedAt,
+      thumbnails: v.snippet.thumbnails,
+      channel: {
+        id: v.snippet.channelId,
+        snippet: { title: v.snippet.channelTitle },
+      },
+      statistics: v.statistics,
+      tags: v.snippet.tags,
+      categoryId: v.snippet.categoryId,
+    })) as VideoItem[];
+  } else {
+    return response.items.map((v) => {
+      return {
+        id: v.id?.videoId,
+        title: v.snippet?.title,
+        description: v.snippet?.description,
+        publishedAt: v.snippet?.publishedAt,
+        thumbnails: v.snippet?.thumbnails,
+        channel: {
+          id: v.snippet?.channelId,
+          snippet: {
+            title: v.snippet?.channelTitle,
+          },
+        } as ChannelItem,
+        statistics: {} as Statistics,
+        tags: [],
+        categoryId: "",
+      };
+    }) as VideoItem[];
+  }
 };
 
 export const numberWithSpaces = (num: number | string) => {

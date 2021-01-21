@@ -3,7 +3,7 @@ import "./RelatedVideoCard.scss";
 
 import moment from "moment";
 import numeral from "numeral";
-
+import { Link } from "react-router-dom";
 import { CheckCircleOutline } from "@material-ui/icons";
 import Truncate from "react-truncate";
 
@@ -14,6 +14,7 @@ interface Props {
   verified?: boolean;
   views: string;
   timestamp: string;
+  videoId: string;
 }
 
 const RelatedVideoCard: FC<Props> = ({
@@ -23,9 +24,10 @@ const RelatedVideoCard: FC<Props> = ({
   channel,
   views,
   verified,
+  videoId,
 }) => {
   return (
-    <div className="relatedVideo">
+    <Link className="relatedVideo" to={`/watch?v=${videoId}`}>
       <img className="relatedVideo__image" src={image} alt="video" />
       <div className="relatedVideo__info">
         <h4 className="relatedVideo__title">
@@ -45,7 +47,7 @@ const RelatedVideoCard: FC<Props> = ({
           </span>
         </p>
       </div>
-    </div>
+    </Link>
   );
 };
 

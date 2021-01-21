@@ -17,7 +17,7 @@ export const setVideoChannelThumbnails = (): AppThunk => async (
 ) => {
   const { video } = getState();
   try {
-    video.data.forEach(async ({ channel, id }) => {
+    video.all.data.forEach(async ({ channel, id }) => {
       const data = await videoAPI.getChannel(channel.id);
       dispatch(
         setChannel({
@@ -35,11 +35,11 @@ export const getVideos = (categoryId?: string): AppThunk => async (
 ) => {
   const { video } = getState();
   try {
-    if (video.isLoading) return;
+    if (video.all.isLoading) return;
     dispatch(setIsLoading(true));
 
-    const data = await videoAPI.getVideos(video.nextPageToken, categoryId);
-    dispatch(setVideoItems(serializeVideoData(data.items)));
+    const data = await videoAPI.getVideos(video.all.nextPageToken, categoryId);
+    dispatch(setVideoItems(serializeVideoData(data)));
     dispatch(setNextPageToken(data.nextPageToken));
     dispatch(setVideoChannelThumbnails());
     dispatch(setIsLoading(false));
@@ -54,10 +54,10 @@ export const getVideo = (id: string): AppThunk => async (
 ) => {
   const { video } = getState();
   try {
-    if (video.isLoading) return;
+    if (video.all.isLoading) return;
     dispatch(setIsLoading(true));
     const data = await videoAPI.getVideo(id);
-    dispatch(setVideoItems(serializeVideoData(data.items)));
+    dispatch(setVideoItems(serializeVideoData(data)));
     dispatch(setVideoChannelThumbnails());
     dispatch(setIsLoading(false));
   } catch (e) {
@@ -72,7 +72,7 @@ export const getRelatedVideos = (videoId: string): AppThunk => async (
 ) => {
   const { video } = getState();
   try {
-    const currentVideo = video.data.find((v) => v.id === videoId);
+    const currentVideo = video.all.data.find((v) => v.id === videoId);
     const categoryId = currentVideo?.categoryId;
     // dispatch(setVideoItems([]));
     // dispatch(setNextPageToken(""));

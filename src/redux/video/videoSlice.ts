@@ -3,14 +3,14 @@ import { RootState } from "../store";
 import { VideoItem } from "../../types/video";
 import { ChannelItem } from "../../types/channel";
 
-type VideoRecommendedState = {
+type AllVideoState = {
   isLoading: boolean;
   error: string;
   data: VideoItem[];
   nextPageToken: string;
 };
 
-const initialState: VideoRecommendedState = {
+const initialState: AllVideoState = {
   isLoading: false,
   error: "",
   data: [],
@@ -18,7 +18,7 @@ const initialState: VideoRecommendedState = {
 };
 
 export const videoSlice = createSlice({
-  name: "videoRecommended",
+  name: "allVideo",
   initialState,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
@@ -64,10 +64,10 @@ export const {
   setChannel,
 } = videoSlice.actions;
 
-export const isLoadingSelector = ({ video }: RootState) => video.isLoading;
-export const errorSelector = ({ video }: RootState) => video.error;
-export const videoSelector = ({ video }: RootState) => video.data;
+export const isLoadingSelector = ({ video }: RootState) => video.all.isLoading;
+export const errorSelector = ({ video }: RootState) => video.all.error;
+export const videoSelector = ({ video }: RootState) => video.all.data;
 export const nextPageTokenSelector = ({ video }: RootState) =>
-  video.nextPageToken;
+  video.all.nextPageToken;
 
 export default videoSlice.reducer;

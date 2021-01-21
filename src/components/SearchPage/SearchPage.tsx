@@ -56,7 +56,7 @@ const SearchPage = () => {
               description={v.description}
               timestamp={v.publishedAt}
               title={v.title}
-              image={v.thumbnails.default.url}
+              image={v.thumbnails?.medium?.url}
               channel={v.channel}
               videoId={v.id}
             />

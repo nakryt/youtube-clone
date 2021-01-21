@@ -1,4 +1,4 @@
-import { PageInfo, Statistics, Thumbnail } from "./types";
+import { Statistics, Thumbnail } from "./types";
 import { ChannelItem } from "./channel";
 
 export interface Snippet {
@@ -50,8 +50,8 @@ export interface VideoItem {
     default: Thumbnail;
     medium: Thumbnail;
     high: Thumbnail;
-    standard: Thumbnail;
-    maxres: Thumbnail;
+    // standard: Thumbnail;
+    // maxres: Thumbnail;
   };
   channel: ChannelItem;
   statistics: Statistics;
@@ -63,6 +63,7 @@ export interface VideoResponse {
   etag: string;
   items: ItemResponse[];
   nextPageToken: string;
+  kind: "youtube#videoListResponse";
 }
 
 export interface ItemResponse {

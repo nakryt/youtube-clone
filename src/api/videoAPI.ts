@@ -1,10 +1,9 @@
 import youtube from "./axios";
 import { VideoResponse } from "../types/video";
-import { Chart } from "../types/types";
+import { Chart, Statistics } from "../types/types";
 import { ChannelResponse } from "../types/channel";
 import axios from "./axios";
 import { SearchResponse } from "../types/search";
-import { RelatedVideoResponse } from "../types/relatedVideos";
 
 interface RequestParams {
   part: string;
@@ -18,8 +17,9 @@ interface RequestParams {
 }
 
 const thumbnails = "thumbnails(medium)";
-const snippet = `snippet(publishedAt,title,description,${thumbnails},categoryId,channelId,channelTitle,tags)`;
-const items = `items(etag,id,statistics(viewCount,likeCount,dislikeCount),${snippet})`;
+const snippet = `snippet(${thumbnails},publishedAt,title,description,categoryId,channelId,channelTitle,tags)`;
+const statistics = "statistics(viewCount,likeCount,dislikeCount)";
+const items = `kind,items(etag,id,${snippet},${statistics})`;
 const fields = `${items},nextPageToken,etag`;
 
 const getVideos = async (pageToken: string, videoCategoryId?: string) => {
@@ -51,6 +51,18 @@ const getVideo = async (id: string) => {
   ).data as VideoResponse;
 };
 
+const getVideoStatistics = async (videoId: string) => {
+  return (
+    await youtube.get("/videos", {
+      params: {
+        type: "video",
+        id: videoId,
+        part: "snippet,statistics",
+      },
+    })
+  ).data.items[0].statistics as Statistics;
+};
+
 const getChannel = async (channelId: string) => {
   return (await youtube.get("/channels", { params: { id: channelId } }))
     .data as ChannelResponse;
@@ -67,10 +79,23 @@ const search = async (query: string) => {
   ).data as SearchResponse;
 };
 
+const getRelatedVideos = async (videoId: string) => {
+  return (
+    await axios.get("/search", {
+      params: {
+        type: "video",
+        relatedToVideoId: videoId,
+      },
+    })
+  ).data as SearchResponse;
+};
+
 const videoAPI = {
   getVideo,
   getVideos,
   getChannel,
+  getRelatedVideos,
+  getVideoStatistics,
   search,
 };
 
