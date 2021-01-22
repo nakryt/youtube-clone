@@ -6,6 +6,7 @@ import numeral from "numeral";
 import { Link } from "react-router-dom";
 import { CheckCircleOutline } from "@material-ui/icons";
 import Truncate from "react-truncate";
+import { Tooltip } from "@material-ui/core";
 
 interface Props {
   image: string;
@@ -30,14 +31,18 @@ const RelatedVideoCard: FC<Props> = ({
     <Link className="relatedVideo" to={`/watch?v=${videoId}`}>
       <img className="relatedVideo__image" src={image} alt="video" />
       <div className="relatedVideo__info">
-        <h4 className="relatedVideo__title">
-          <Truncate lines={2} ellipsis={"..."}>
-            {title}
-          </Truncate>
-        </h4>
-        <p className="relatedVideo__channel">
-          {channel} {verified && <CheckCircleOutline />}
-        </p>
+        <Tooltip title={title} classes={{ tooltip: "tooltip tooltip-black" }}>
+          <h4 className="relatedVideo__title">
+            <Truncate lines={2} ellipsis={"..."}>
+              {title}
+            </Truncate>
+          </h4>
+        </Tooltip>
+        <Tooltip title={channel} classes={{ tooltip: "tooltip" }}>
+          <p className="relatedVideo__channel">
+            {channel} {verified && <CheckCircleOutline />}
+          </p>
+        </Tooltip>
         <p className="relatedVideo__metadata">
           <span className="relatedVideo__views">
             <span>{numeral(views).format("0a")}</span> views

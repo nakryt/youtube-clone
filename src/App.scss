@@ -9,3 +9,36 @@
     background-color: transparent;
   }
 }
+
+.tooltip {
+  font-size: 0.9rem !important;
+}
+
+.tooltip-black {
+  font-size: 0.9rem !important;
+  background-color: #1c1a1a !important;
+  border: 1px solid #fff;
+  border-radius: 1px !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.tooltip-translateY-minus20 {
+  transform: translateY(-20px) !important;
+}
+
+.tooltip-translateY-minus30 {
+  transform: translateY(-30px) !important;
+}
+
+.tooltip-translateY-plus20 {
+  transform: translateY(20px) !important;
+}
+
+.tooltip-translateY-plus30 {
+  transform: translateY(30px) !important;
+}
+
+.tooltipPlacementBottom {
+  //height: 30px;
+  //background-color: #f00;
+}

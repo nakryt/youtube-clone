@@ -1,7 +1,7 @@
 import React from "react";
 import "./Buttons.scss";
 
-import { Avatar, Button, IconButton } from "@material-ui/core";
+import { Avatar, Button, IconButton, Tooltip } from "@material-ui/core";
 import { Apps, Notifications, VideoCall, MoreVert } from "@material-ui/icons";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -26,10 +26,14 @@ const Buttons = () => {
       {!user ? (
         <div>
           <IconButton className="header__icon">
-            <Apps />
+            <Tooltip title={"YouTube Apps"} classes={{ tooltip: "tooltip" }}>
+              <Apps />
+            </Tooltip>
           </IconButton>
           <IconButton className="header__icon">
-            <MoreVert />
+            <Tooltip title={"More"} classes={{ tooltip: "tooltip" }}>
+              <MoreVert />
+            </Tooltip>
           </IconButton>
           <Button className="header__signIn" onClick={signIn}>
             <Avatar className="button__avatar" />

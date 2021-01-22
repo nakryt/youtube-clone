@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import "./Search.scss";
 
 import { Keyboard, Search as SearchIcon, Mic } from "@material-ui/icons";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchQuery } from "../../../redux/search/searchThunk";
@@ -18,7 +18,9 @@ const Search = () => {
   };
   const submitHandler = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    history.push(`/search`);
+    if (searchQuery.trim()) {
+      history.push(`/search`);
+    }
   };
 
   return (
@@ -33,12 +35,25 @@ const Search = () => {
         />
         <Keyboard className="keyboard" />
         <button className="search__inputButton" type="submit">
-          <SearchIcon fontSize="small" />
+          <Tooltip
+            title="Search"
+            classes={{
+              tooltip: "tooltip",
+            }}
+            interactive={true}
+          >
+            <SearchIcon fontSize="small" />
+          </Tooltip>
         </button>
       </form>
-      <IconButton>
-        <Mic />
-      </IconButton>
+      <Tooltip
+        title="Search with your voice"
+        classes={{ tooltip: "tooltip tooltip-translateY-minus20" }}
+      >
+        <IconButton>
+          <Mic />
+        </IconButton>
+      </Tooltip>
     </div>
   );
 };

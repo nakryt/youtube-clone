@@ -11,6 +11,10 @@
     align-items: center;
     color: $gray;
     text-transform: uppercase;
+
+    .MuiIconButton-root {
+      padding-right: 0.2rem;
+    }
   }
 
   .reply {

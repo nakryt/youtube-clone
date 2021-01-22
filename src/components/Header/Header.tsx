@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.scss";
 
-import { IconButton } from "@material-ui/core";
+import { IconButton, Tooltip } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/img/logo.svg";
@@ -17,9 +17,14 @@ const Header = () => {
           <Menu />
         </IconButton>
         <div className="header__logo">
-          <Link to="/">
-            <Logo />
-          </Link>
+          <Tooltip
+            title="YouTube Home"
+            classes={{ tooltip: "tooltip-black tooltip-translateY-minus30" }}
+          >
+            <Link to="/">
+              <Logo />
+            </Link>
+          </Tooltip>
         </div>
       </div>
 

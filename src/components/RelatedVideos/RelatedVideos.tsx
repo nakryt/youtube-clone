@@ -11,10 +11,10 @@ const RelatedVideos = () => {
       {videos.map((v) => (
         <RelatedVideoCard
           key={v.id}
-          image={v.thumbnails.medium.url}
+          image={v.thumbnails?.medium?.url}
           title={v.title}
-          channel={v.channel.snippet.title}
-          views={v.statistics.viewCount}
+          channel={v.channel?.snippet?.title}
+          views={v.statistics?.viewCount}
           timestamp={v.publishedAt}
           videoId={v.id}
         />

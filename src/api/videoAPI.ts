@@ -60,7 +60,7 @@ const getVideoStatistics = async (videoId: string) => {
         part: "snippet,statistics",
       },
     })
-  ).data.items[0].statistics as Statistics;
+  ).data?.items[0]?.statistics as Statistics;
 };
 
 const getChannel = async (channelId: string) => {
