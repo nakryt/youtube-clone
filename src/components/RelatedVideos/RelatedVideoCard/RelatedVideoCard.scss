@@ -8,27 +8,37 @@
     width: 168px;
     height: 94px;
     margin-right: 0.5rem;
+    flex-shrink: 0;
   }
 
-  .relatedVideo__title {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-  }
+  .relatedVideo__info {
+    width: 100%;
 
-  .relatedVideo__channel {
-    color: $gray;
-    font-size: 0.8rem;
-  }
-
-  .relatedVideo__metadata {
-    color: $gray;
-    font-size: 0.8rem;
-
-    .relatedVideo__views {
-      margin-right: 0.4rem;
+    .relatedVideo__title {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
 
       span {
-        text-transform: uppercase;
+        width: 100%;
+      }
+    }
+
+    .relatedVideo__channel {
+      color: $gray;
+      font-size: 0.8rem;
+    }
+
+    .relatedVideo__metadata {
+      color: $gray;
+      font-size: 0.8rem;
+
+      .relatedVideo__views {
+        margin-right: 0.4rem;
+        display: block;
+
+        span {
+          text-transform: uppercase;
+        }
       }
     }
   }

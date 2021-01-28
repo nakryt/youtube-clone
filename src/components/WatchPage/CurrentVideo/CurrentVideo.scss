@@ -1,13 +1,15 @@
 .currentVideo {
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  min-height: 920px;
 
   .currentVideo__iframe {
-    width: 850px;
+    width: 100%;
     height: 480px;
     border: none;
+    margin-bottom: 1rem;
+  }
+
+  hr {
     margin-bottom: 1rem;
   }
 }

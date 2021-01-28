@@ -1,4 +1,5 @@
 @import "src/style/color";
+@import "src/style/breakpoints";
 
 .videoDataStatistics {
   display: flex;
@@ -6,11 +7,16 @@
   justify-content: space-between;
   flex: 3;
 
+  @include for-desktop-medium-down {
+    flex: 4;
+  }
+
   span {
     display: flex;
     align-items: center;
     color: $gray;
     text-transform: uppercase;
+    white-space: nowrap;
 
     .MuiIconButton-root {
       padding-right: 0.2rem;

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { CheckCircleOutline } from "@material-ui/icons";
 import Truncate from "react-truncate";
 import { Tooltip } from "@material-ui/core";
+import { useWindowSize } from "../../../hooks/useWindowSize";
 
 interface Props {
   image: string;
@@ -29,16 +30,30 @@ const RelatedVideoCard: FC<Props> = ({
 }) => {
   return (
     <Link className="relatedVideo" to={`/watch?v=${videoId}`}>
-      <img className="relatedVideo__image" src={image} alt="video" />
+      <img
+        className="relatedVideo__image"
+        src={image}
+        alt="video"
+        width={168}
+        height={94}
+      />
       <div className="relatedVideo__info">
-        <Tooltip title={title} classes={{ tooltip: "tooltip tooltip-black" }}>
+        <Tooltip
+          title={title}
+          placement="bottom-start"
+          classes={{ tooltip: "tooltip tooltip-black" }}
+        >
           <h4 className="relatedVideo__title">
             <Truncate lines={2} ellipsis={"..."}>
               {title}
             </Truncate>
           </h4>
         </Tooltip>
-        <Tooltip title={channel} classes={{ tooltip: "tooltip" }}>
+        <Tooltip
+          title={channel}
+          placement="bottom-start"
+          classes={{ tooltip: "tooltip" }}
+        >
           <p className="relatedVideo__channel">
             {channel} {verified && <CheckCircleOutline />}
           </p>

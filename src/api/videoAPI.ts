@@ -64,8 +64,11 @@ const getVideoStatistics = async (videoId: string) => {
 };
 
 const getChannel = async (channelId: string) => {
-  return (await youtube.get("/channels", { params: { id: channelId } }))
-    .data as ChannelResponse;
+  return (
+    await youtube.get("/channels", {
+      params: { id: channelId, part: "snippet,statistics" },
+    })
+  ).data as ChannelResponse;
 };
 
 const search = async (query: string) => {
@@ -85,6 +88,7 @@ const getRelatedVideos = async (videoId: string) => {
       params: {
         type: "video",
         relatedToVideoId: videoId,
+        order: "relevance",
       },
     })
   ).data as SearchResponse;

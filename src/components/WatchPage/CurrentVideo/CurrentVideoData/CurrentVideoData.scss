@@ -29,9 +29,13 @@
     .metadata__meta {
       display: flex;
       align-items: center;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: $gray;
       flex: 2;
+
+      div {
+        white-space: nowrap;
+      }
 
       .currentVideoData__dot {
         margin: 0 0.3rem;

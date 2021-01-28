@@ -1,5 +1,12 @@
 import { PageInfo, Thumbnail } from "./types";
 
+interface Statistics {
+  viewCount: string;
+  subscriberCount: string;
+  hiddenSubscriberCount: boolean;
+  videoCount: string;
+}
+
 export interface ChannelItem {
   kind: "youtube#channel";
   etag: string;
@@ -15,6 +22,7 @@ export interface ChannelItem {
       high: Thumbnail;
     };
   };
+  statistics: Statistics;
   localized: {
     title: string;
     description: string;

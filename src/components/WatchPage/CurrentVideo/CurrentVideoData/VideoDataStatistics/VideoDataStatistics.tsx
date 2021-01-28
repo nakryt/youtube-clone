@@ -8,7 +8,7 @@ import {
   ThumbDown,
   ThumbUp,
 } from "@material-ui/icons";
-import { numberWithSpaces } from "../../../../../utils";
+import numeral from "numeral";
 import { IconButton, Tooltip } from "@material-ui/core";
 
 interface Props {
@@ -24,18 +24,14 @@ const VideoDataStatistics: FC<Props> = ({ likes, dislikes }) => {
           <Tooltip
             title={"I like this"}
             classes={{
-              tooltip: `tooltip ${
-                window.pageYOffset < 50
-                  ? "tooltip-translateY-minus20"
-                  : "tooltip-translateY-plus20"
-              }`,
+              tooltip: `tooltip`,
             }}
           >
             <IconButton>
               <ThumbUp />
             </IconButton>
           </Tooltip>
-          {numberWithSpaces(likes)}
+          {numeral(likes).format("0a")}
         </span>
       </div>
       <div className="dislikes">
@@ -43,18 +39,14 @@ const VideoDataStatistics: FC<Props> = ({ likes, dislikes }) => {
           <Tooltip
             title={"I don't like this"}
             classes={{
-              tooltip: `tooltip ${
-                window.pageYOffset < 50
-                  ? "tooltip-translateY-minus20"
-                  : "tooltip-translateY-plus20"
-              }`,
+              tooltip: `tooltip`,
             }}
           >
             <IconButton>
               <ThumbDown />
             </IconButton>
           </Tooltip>
-          {numberWithSpaces(dislikes)}
+          {numeral(dislikes).format("0a")}
         </span>
       </div>
       <div className="reply">

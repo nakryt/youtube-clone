@@ -8,17 +8,21 @@ const RelatedVideos = () => {
   const videos = useSelector(relatedVideoSelector);
   return (
     <div className="relatedVideos">
-      {videos.map((v) => (
-        <RelatedVideoCard
-          key={v.id}
-          image={v.thumbnails?.medium?.url}
-          title={v.title}
-          channel={v.channel?.snippet?.title}
-          views={v.statistics?.viewCount}
-          timestamp={v.publishedAt}
-          videoId={v.id}
-        />
-      ))}
+      {videos.map((v) => {
+        if (v.title) {
+          return (
+            <RelatedVideoCard
+              key={v.id}
+              image={v.thumbnails?.medium?.url}
+              title={v.title}
+              channel={v.channel?.snippet?.title}
+              views={v.statistics?.viewCount}
+              timestamp={v.publishedAt}
+              videoId={v.id}
+            />
+          );
+        }
+      })}
     </div>
   );
 };

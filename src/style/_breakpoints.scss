@@ -28,6 +28,11 @@
     @content;
   }
 }
+@mixin for-desktop-medium-down {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
 @mixin for-desktop-large-down {
   @media (max-width: 1312px) {
     @content;
